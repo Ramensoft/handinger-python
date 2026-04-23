@@ -2,16 +2,23 @@
 
 from typing import Union
 from datetime import datetime
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Annotated, TypeAlias
 
 from pydantic import Field as FieldInfo
 
+from ..._utils import PropertyInfo
 from ..._models import BaseModel
 
-__all__ = ["WorkerSchedule", "UnionMember0", "UnionMember1", "UnionMember2", "UnionMember3"]
+__all__ = [
+    "WorkerSchedule",
+    "ScheduledWorkerSchedule",
+    "DelayedWorkerSchedule",
+    "CronWorkerSchedule",
+    "IntervalWorkerSchedule",
+]
 
 
-class UnionMember0(BaseModel):
+class ScheduledWorkerSchedule(BaseModel):
     id: str
 
     budget: Literal["low", "standard", "high", "unlimited"]
@@ -23,7 +30,7 @@ class UnionMember0(BaseModel):
     type: Literal["scheduled"]
 
 
-class UnionMember1(BaseModel):
+class DelayedWorkerSchedule(BaseModel):
     id: str
 
     budget: Literal["low", "standard", "high", "unlimited"]
@@ -37,7 +44,7 @@ class UnionMember1(BaseModel):
     type: Literal["delayed"]
 
 
-class UnionMember2(BaseModel):
+class CronWorkerSchedule(BaseModel):
     id: str
 
     budget: Literal["low", "standard", "high", "unlimited"]
@@ -51,7 +58,7 @@ class UnionMember2(BaseModel):
     type: Literal["cron"]
 
 
-class UnionMember3(BaseModel):
+class IntervalWorkerSchedule(BaseModel):
     id: str
 
     budget: Literal["low", "standard", "high", "unlimited"]
@@ -65,4 +72,7 @@ class UnionMember3(BaseModel):
     type: Literal["interval"]
 
 
-WorkerSchedule: TypeAlias = Union[UnionMember0, UnionMember1, UnionMember2, UnionMember3]
+WorkerSchedule: TypeAlias = Annotated[
+    Union[ScheduledWorkerSchedule, DelayedWorkerSchedule, CronWorkerSchedule, IntervalWorkerSchedule],
+    PropertyInfo(discriminator="type"),
+]
