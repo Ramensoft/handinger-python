@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.0.3 (2026-04-23)
+
+Full Changelog: [v0.0.2...v0.0.3](https://github.com/Ramensoft/handinger-python/compare/v0.0.2...v0.0.3)
+
+### Chores
+
+* update SDK settings ([0450d81](https://github.com/Ramensoft/handinger-python/commit/0450d81b1f7168eae3e46ac9563e25e019a4a453))
+* update SDK settings ([929f910](https://github.com/Ramensoft/handinger-python/commit/929f910a6f1b74d5a3c3b5362dbc39a8b7326443))
+
 ## 0.0.2 (2026-04-23)
 
 Full Changelog: [v0.0.1...v0.0.2](https://github.com/Ramensoft/handinger-python/compare/v0.0.1...v0.0.2)
