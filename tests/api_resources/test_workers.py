@@ -31,7 +31,7 @@ class TestWorkers:
     @parametrize
     def test_method_create(self, client: Handinger) -> None:
         worker = client.workers.create(
-            input="x",
+            input="What's the weather today in Barcelona?",
         )
         assert_matches_type(Worker, worker, path=["response"])
 
@@ -39,7 +39,7 @@ class TestWorkers:
     @parametrize
     def test_method_create_with_all_params(self, client: Handinger) -> None:
         worker = client.workers.create(
-            input="x",
+            input="What's the weather today in Barcelona?",
             budget="low",
             stream=True,
         )
@@ -49,7 +49,7 @@ class TestWorkers:
     @parametrize
     def test_raw_response_create(self, client: Handinger) -> None:
         response = client.workers.with_raw_response.create(
-            input="x",
+            input="What's the weather today in Barcelona?",
         )
 
         assert response.is_closed is True
@@ -61,7 +61,7 @@ class TestWorkers:
     @parametrize
     def test_streaming_response_create(self, client: Handinger) -> None:
         with client.workers.with_streaming_response.create(
-            input="x",
+            input="What's the weather today in Barcelona?",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -127,7 +127,7 @@ class TestWorkers:
     def test_method_continue(self, client: Handinger) -> None:
         worker = client.workers.continue_(
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-            input="x",
+            input="What's the weather today in Barcelona?",
         )
         assert_matches_type(Worker, worker, path=["response"])
 
@@ -136,7 +136,7 @@ class TestWorkers:
     def test_method_continue_with_all_params(self, client: Handinger) -> None:
         worker = client.workers.continue_(
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-            input="x",
+            input="What's the weather today in Barcelona?",
             budget="low",
             stream=True,
         )
@@ -147,7 +147,7 @@ class TestWorkers:
     def test_raw_response_continue(self, client: Handinger) -> None:
         response = client.workers.with_raw_response.continue_(
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-            input="x",
+            input="What's the weather today in Barcelona?",
         )
 
         assert response.is_closed is True
@@ -160,7 +160,7 @@ class TestWorkers:
     def test_streaming_response_continue(self, client: Handinger) -> None:
         with client.workers.with_streaming_response.continue_(
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-            input="x",
+            input="What's the weather today in Barcelona?",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -176,7 +176,7 @@ class TestWorkers:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `worker_id` but received ''"):
             client.workers.with_raw_response.continue_(
                 worker_id="",
-                input="x",
+                input="What's the weather today in Barcelona?",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -338,7 +338,7 @@ class TestAsyncWorkers:
     @parametrize
     async def test_method_create(self, async_client: AsyncHandinger) -> None:
         worker = await async_client.workers.create(
-            input="x",
+            input="What's the weather today in Barcelona?",
         )
         assert_matches_type(Worker, worker, path=["response"])
 
@@ -346,7 +346,7 @@ class TestAsyncWorkers:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncHandinger) -> None:
         worker = await async_client.workers.create(
-            input="x",
+            input="What's the weather today in Barcelona?",
             budget="low",
             stream=True,
         )
@@ -356,7 +356,7 @@ class TestAsyncWorkers:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncHandinger) -> None:
         response = await async_client.workers.with_raw_response.create(
-            input="x",
+            input="What's the weather today in Barcelona?",
         )
 
         assert response.is_closed is True
@@ -368,7 +368,7 @@ class TestAsyncWorkers:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncHandinger) -> None:
         async with async_client.workers.with_streaming_response.create(
-            input="x",
+            input="What's the weather today in Barcelona?",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -434,7 +434,7 @@ class TestAsyncWorkers:
     async def test_method_continue(self, async_client: AsyncHandinger) -> None:
         worker = await async_client.workers.continue_(
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-            input="x",
+            input="What's the weather today in Barcelona?",
         )
         assert_matches_type(Worker, worker, path=["response"])
 
@@ -443,7 +443,7 @@ class TestAsyncWorkers:
     async def test_method_continue_with_all_params(self, async_client: AsyncHandinger) -> None:
         worker = await async_client.workers.continue_(
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-            input="x",
+            input="What's the weather today in Barcelona?",
             budget="low",
             stream=True,
         )
@@ -454,7 +454,7 @@ class TestAsyncWorkers:
     async def test_raw_response_continue(self, async_client: AsyncHandinger) -> None:
         response = await async_client.workers.with_raw_response.continue_(
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-            input="x",
+            input="What's the weather today in Barcelona?",
         )
 
         assert response.is_closed is True
@@ -467,7 +467,7 @@ class TestAsyncWorkers:
     async def test_streaming_response_continue(self, async_client: AsyncHandinger) -> None:
         async with async_client.workers.with_streaming_response.continue_(
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-            input="x",
+            input="What's the weather today in Barcelona?",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -483,7 +483,7 @@ class TestAsyncWorkers:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `worker_id` but received ''"):
             await async_client.workers.with_raw_response.continue_(
                 worker_id="",
-                input="x",
+                input="What's the weather today in Barcelona?",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

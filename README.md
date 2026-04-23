@@ -33,7 +33,7 @@ client = Handinger(
 )
 
 worker = client.workers.create(
-    input="x",
+    input="What's the weather today in Barcelona?",
 )
 print(worker.id)
 ```
@@ -59,7 +59,7 @@ client = AsyncHandinger(
 
 async def main() -> None:
     worker = await client.workers.create(
-        input="x",
+        input="What's the weather today in Barcelona?",
     )
     print(worker.id)
 
@@ -95,7 +95,7 @@ async def main() -> None:
         http_client=DefaultAioHttpClient(),
     ) as client:
         worker = await client.workers.create(
-            input="x",
+            input="What's the weather today in Barcelona?",
         )
         print(worker.id)
 
@@ -129,7 +129,7 @@ client = Handinger()
 
 try:
     client.workers.create(
-        input="x",
+        input="What's the weather today in Barcelona?",
     )
 except handinger.APIConnectionError as e:
     print("The server could not be reached")
@@ -174,7 +174,7 @@ client = Handinger(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).workers.create(
-    input="x",
+    input="What's the weather today in Barcelona?",
 )
 ```
 
@@ -199,7 +199,7 @@ client = Handinger(
 
 # Override per-request:
 client.with_options(timeout=5.0).workers.create(
-    input="x",
+    input="What's the weather today in Barcelona?",
 )
 ```
 
@@ -242,7 +242,7 @@ from handinger import Handinger
 
 client = Handinger()
 response = client.workers.with_raw_response.create(
-    input="x",
+    input="What's the weather today in Barcelona?",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -262,7 +262,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.workers.with_streaming_response.create(
-    input="x",
+    input="What's the weather today in Barcelona?",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
