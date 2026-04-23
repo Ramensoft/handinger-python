@@ -878,7 +878,7 @@ class TestHandinger:
         respx_mock.post("/api/workers").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.workers.with_streaming_response.create(input="x").__enter__()
+            client.workers.with_streaming_response.create(input="What's the weather today in Barcelona?").__enter__()
 
         assert _get_open_connections(client) == 0
 
@@ -888,7 +888,7 @@ class TestHandinger:
         respx_mock.post("/api/workers").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.workers.with_streaming_response.create(input="x").__enter__()
+            client.workers.with_streaming_response.create(input="What's the weather today in Barcelona?").__enter__()
         assert _get_open_connections(client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -917,7 +917,7 @@ class TestHandinger:
 
         respx_mock.post("/api/workers").mock(side_effect=retry_handler)
 
-        response = client.workers.with_raw_response.create(input="x")
+        response = client.workers.with_raw_response.create(input="What's the weather today in Barcelona?")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -941,7 +941,9 @@ class TestHandinger:
 
         respx_mock.post("/api/workers").mock(side_effect=retry_handler)
 
-        response = client.workers.with_raw_response.create(input="x", extra_headers={"x-stainless-retry-count": Omit()})
+        response = client.workers.with_raw_response.create(
+            input="What's the weather today in Barcelona?", extra_headers={"x-stainless-retry-count": Omit()}
+        )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -964,7 +966,9 @@ class TestHandinger:
 
         respx_mock.post("/api/workers").mock(side_effect=retry_handler)
 
-        response = client.workers.with_raw_response.create(input="x", extra_headers={"x-stainless-retry-count": "42"})
+        response = client.workers.with_raw_response.create(
+            input="What's the weather today in Barcelona?", extra_headers={"x-stainless-retry-count": "42"}
+        )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1810,7 +1814,9 @@ class TestAsyncHandinger:
         respx_mock.post("/api/workers").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.workers.with_streaming_response.create(input="x").__aenter__()
+            await async_client.workers.with_streaming_response.create(
+                input="What's the weather today in Barcelona?"
+            ).__aenter__()
 
         assert _get_open_connections(async_client) == 0
 
@@ -1822,7 +1828,9 @@ class TestAsyncHandinger:
         respx_mock.post("/api/workers").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.workers.with_streaming_response.create(input="x").__aenter__()
+            await async_client.workers.with_streaming_response.create(
+                input="What's the weather today in Barcelona?"
+            ).__aenter__()
         assert _get_open_connections(async_client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1851,7 +1859,7 @@ class TestAsyncHandinger:
 
         respx_mock.post("/api/workers").mock(side_effect=retry_handler)
 
-        response = await client.workers.with_raw_response.create(input="x")
+        response = await client.workers.with_raw_response.create(input="What's the weather today in Barcelona?")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1876,7 +1884,7 @@ class TestAsyncHandinger:
         respx_mock.post("/api/workers").mock(side_effect=retry_handler)
 
         response = await client.workers.with_raw_response.create(
-            input="x", extra_headers={"x-stainless-retry-count": Omit()}
+            input="What's the weather today in Barcelona?", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1901,7 +1909,7 @@ class TestAsyncHandinger:
         respx_mock.post("/api/workers").mock(side_effect=retry_handler)
 
         response = await client.workers.with_raw_response.create(
-            input="x", extra_headers={"x-stainless-retry-count": "42"}
+            input="What's the weather today in Barcelona?", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
