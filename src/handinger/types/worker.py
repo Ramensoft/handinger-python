@@ -7,7 +7,7 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["Worker", "File", "Output", "OutputContent", "Source", "Costs", "Usage"]
+__all__ = ["Worker", "File", "Output", "OutputContent", "Source", "Usage"]
 
 
 class File(BaseModel):
@@ -46,33 +46,7 @@ class Source(BaseModel):
     url: str
 
 
-class Costs(BaseModel):
-    internal_cost_usd: float = FieldInfo(alias="internalCostUsd")
-
-    api_model_cost_usd: float = FieldInfo(alias="modelCostUsd")
-
-    sandbox_cost_usd: float = FieldInfo(alias="sandboxCostUsd")
-
-    tool_cost_usd: float = FieldInfo(alias="toolCostUsd")
-
-
 class Usage(BaseModel):
-    cache_read_tokens: int = FieldInfo(alias="cacheReadTokens")
-
-    cache_write_tokens: int = FieldInfo(alias="cacheWriteTokens")
-
-    cost_usd: float = FieldInfo(alias="costUsd")
-
-    input_tokens: int = FieldInfo(alias="inputTokens")
-
-    output_tokens: int = FieldInfo(alias="outputTokens")
-
-    reasoning_tokens: int = FieldInfo(alias="reasoningTokens")
-
-    steps: int
-
-    total_tokens: int = FieldInfo(alias="totalTokens")
-
     credits: Optional[int] = None
 
     duration_ms: Optional[int] = FieldInfo(alias="durationMs", default=None)
@@ -104,7 +78,5 @@ class Worker(BaseModel):
     sources: List[Source]
 
     status: Literal["running", "completed", "pending"]
-
-    costs: Optional[Costs] = None
 
     usage: Optional[Usage] = None
