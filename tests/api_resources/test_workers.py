@@ -11,9 +11,7 @@ from respx import MockRouter
 
 from handinger import Handinger, AsyncHandinger
 from tests.utils import assert_matches_type
-from handinger.types import (
-    Worker,
-)
+from handinger.types import Worker
 from handinger._response import (
     BinaryAPIResponse,
     AsyncBinaryAPIResponse,
@@ -75,16 +73,7 @@ class TestWorkers:
     @parametrize
     def test_method_retrieve(self, client: Handinger) -> None:
         worker = client.workers.retrieve(
-            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-        )
-        assert_matches_type(Worker, worker, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_retrieve_with_all_params(self, client: Handinger) -> None:
-        worker = client.workers.retrieve(
-            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-            stream=True,
+            "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
         )
         assert_matches_type(Worker, worker, path=["response"])
 
@@ -92,7 +81,7 @@ class TestWorkers:
     @parametrize
     def test_raw_response_retrieve(self, client: Handinger) -> None:
         response = client.workers.with_raw_response.retrieve(
-            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+            "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
         )
 
         assert response.is_closed is True
@@ -104,7 +93,7 @@ class TestWorkers:
     @parametrize
     def test_streaming_response_retrieve(self, client: Handinger) -> None:
         with client.workers.with_streaming_response.retrieve(
-            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+            "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -119,7 +108,7 @@ class TestWorkers:
     def test_path_params_retrieve(self, client: Handinger) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `worker_id` but received ''"):
             client.workers.with_raw_response.retrieve(
-                worker_id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -287,47 +276,6 @@ class TestWorkers:
                 worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_stream_updates(self, client: Handinger) -> None:
-        worker_stream = client.workers.stream_updates(
-            "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-        )
-        worker_stream.response.close()
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_stream_updates(self, client: Handinger) -> None:
-        response = client.workers.with_raw_response.stream_updates(
-            "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-        )
-
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        stream = response.parse()
-        stream.close()
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_stream_updates(self, client: Handinger) -> None:
-        with client.workers.with_streaming_response.stream_updates(
-            "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            stream = response.parse()
-            stream.close()
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_path_params_stream_updates(self, client: Handinger) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `worker_id` but received ''"):
-            client.workers.with_raw_response.stream_updates(
-                "",
-            )
-
 
 class TestAsyncWorkers:
     parametrize = pytest.mark.parametrize(
@@ -382,16 +330,7 @@ class TestAsyncWorkers:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncHandinger) -> None:
         worker = await async_client.workers.retrieve(
-            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-        )
-        assert_matches_type(Worker, worker, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_retrieve_with_all_params(self, async_client: AsyncHandinger) -> None:
-        worker = await async_client.workers.retrieve(
-            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-            stream=True,
+            "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
         )
         assert_matches_type(Worker, worker, path=["response"])
 
@@ -399,7 +338,7 @@ class TestAsyncWorkers:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncHandinger) -> None:
         response = await async_client.workers.with_raw_response.retrieve(
-            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+            "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
         )
 
         assert response.is_closed is True
@@ -411,7 +350,7 @@ class TestAsyncWorkers:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncHandinger) -> None:
         async with async_client.workers.with_streaming_response.retrieve(
-            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+            "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -426,7 +365,7 @@ class TestAsyncWorkers:
     async def test_path_params_retrieve(self, async_client: AsyncHandinger) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `worker_id` but received ''"):
             await async_client.workers.with_raw_response.retrieve(
-                worker_id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -592,45 +531,4 @@ class TestAsyncWorkers:
             await async_client.workers.with_raw_response.retrieve_file(
                 file_path="",
                 worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_stream_updates(self, async_client: AsyncHandinger) -> None:
-        worker_stream = await async_client.workers.stream_updates(
-            "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-        )
-        await worker_stream.response.aclose()
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_stream_updates(self, async_client: AsyncHandinger) -> None:
-        response = await async_client.workers.with_raw_response.stream_updates(
-            "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-        )
-
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        stream = await response.parse()
-        await stream.close()
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_stream_updates(self, async_client: AsyncHandinger) -> None:
-        async with async_client.workers.with_streaming_response.stream_updates(
-            "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            stream = await response.parse()
-            await stream.close()
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_path_params_stream_updates(self, async_client: AsyncHandinger) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `worker_id` but received ''"):
-            await async_client.workers.with_raw_response.stream_updates(
-                "",
             )
