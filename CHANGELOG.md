@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.0 (2026-04-27)
+
+Full Changelog: [v0.4.0...v0.5.0](https://github.com/Ramensoft/handinger-python/compare/v0.4.0...v0.5.0)
+
+### Features
+
+* File uploads ([d289b75](https://github.com/Ramensoft/handinger-python/commit/d289b75f48dd6ff90395ba701b168371e52b9f7c))
+
 ## 0.4.0 (2026-04-24)
 
 Full Changelog: [v0.3.0...v0.4.0](https://github.com/Ramensoft/handinger-python/compare/v0.3.0...v0.4.0)
