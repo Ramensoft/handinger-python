@@ -104,6 +104,7 @@ class Handinger(SyncAPIClient):
 
     @cached_property
     def workers(self) -> WorkersResource:
+        """Create, retrieve, and continue agent workers."""
         from .resources.workers import WorkersResource
 
         return WorkersResource(self)
@@ -283,6 +284,7 @@ class AsyncHandinger(AsyncAPIClient):
 
     @cached_property
     def workers(self) -> AsyncWorkersResource:
+        """Create, retrieve, and continue agent workers."""
         from .resources.workers import AsyncWorkersResource
 
         return AsyncWorkersResource(self)
@@ -413,6 +415,7 @@ class HandingerWithRawResponse:
 
     @cached_property
     def workers(self) -> workers.WorkersResourceWithRawResponse:
+        """Create, retrieve, and continue agent workers."""
         from .resources.workers import WorkersResourceWithRawResponse
 
         return WorkersResourceWithRawResponse(self._client.workers)
@@ -426,6 +429,7 @@ class AsyncHandingerWithRawResponse:
 
     @cached_property
     def workers(self) -> workers.AsyncWorkersResourceWithRawResponse:
+        """Create, retrieve, and continue agent workers."""
         from .resources.workers import AsyncWorkersResourceWithRawResponse
 
         return AsyncWorkersResourceWithRawResponse(self._client.workers)
@@ -439,6 +443,7 @@ class HandingerWithStreamedResponse:
 
     @cached_property
     def workers(self) -> workers.WorkersResourceWithStreamingResponse:
+        """Create, retrieve, and continue agent workers."""
         from .resources.workers import WorkersResourceWithStreamingResponse
 
         return WorkersResourceWithStreamingResponse(self._client.workers)
@@ -452,6 +457,7 @@ class AsyncHandingerWithStreamedResponse:
 
     @cached_property
     def workers(self) -> workers.AsyncWorkersResourceWithStreamingResponse:
+        """Create, retrieve, and continue agent workers."""
         from .resources.workers import AsyncWorkersResourceWithStreamingResponse
 
         return AsyncWorkersResourceWithStreamingResponse(self._client.workers)

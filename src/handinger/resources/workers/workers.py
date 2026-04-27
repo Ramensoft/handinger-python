@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...types import worker_create_params, worker_continue_params
+from ...types import worker_create_params, worker_continue_params, worker_retrieve_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
@@ -20,18 +20,10 @@ from .schedules import (
 )
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
-    BinaryAPIResponse,
-    AsyncBinaryAPIResponse,
-    StreamedBinaryAPIResponse,
-    AsyncStreamedBinaryAPIResponse,
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
-    to_custom_raw_response_wrapper,
     async_to_streamed_response_wrapper,
-    to_custom_streamed_response_wrapper,
-    async_to_custom_raw_response_wrapper,
-    async_to_custom_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
 from ...types.worker import Worker
@@ -40,6 +32,8 @@ __all__ = ["WorkersResource", "AsyncWorkersResource"]
 
 
 class WorkersResource(SyncAPIResource):
+    """Create, retrieve, and continue agent workers."""
+
     @cached_property
     def schedules(self) -> SchedulesResource:
         """Manage future and recurring worker tasks."""
@@ -77,8 +71,11 @@ class WorkersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Worker:
-        """
-        Create a new agent worker and start it with the supplied instruction.
+        """Create a new agent worker and start it with the supplied instruction.
+
+        Send
+        `multipart/form-data` to attach files alongside the instruction; the bytes are
+        bootstrapped into the worker's workspace before the first turn.
 
         Args:
           extra_headers: Send extra headers
@@ -109,6 +106,7 @@ class WorkersResource(SyncAPIResource):
         self,
         worker_id: str,
         *,
+        stream: Literal["true", "false"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -116,10 +114,16 @@ class WorkersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Worker:
-        """
-        Retrieve the current worker state and messages.
+        """Retrieve the current worker state and messages.
+
+        Returns a JSON worker object by
+        default, or a server-sent event stream when `stream=true`.
 
         Args:
+          stream: Set to "true" to receive a server-sent event stream that replays all stored
+              messages and then continues with live chunks from the active turn (if any)
+              before closing.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -133,7 +137,11 @@ class WorkersResource(SyncAPIResource):
         return self._get(
             path_template("/api/workers/{worker_id}", worker_id=worker_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"stream": stream}, worker_retrieve_params.WorkerRetrieveParams),
             ),
             cast_to=Worker,
         )
@@ -152,8 +160,11 @@ class WorkersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Worker:
-        """
-        Send another instruction to an existing worker.
+        """Send another instruction to an existing worker.
+
+        Send `multipart/form-data` to
+        attach additional files; the bytes are bootstrapped into the worker's workspace
+        before the next turn.
 
         Args:
           extra_headers: Send extra headers
@@ -215,47 +226,10 @@ class WorkersResource(SyncAPIResource):
             cast_to=str,
         )
 
-    def retrieve_file(
-        self,
-        file_path: str,
-        *,
-        worker_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BinaryAPIResponse:
-        """Retrieve a file published from a worker workspace.
-
-        The runtime route accepts
-        nested paths after /files/.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not worker_id:
-            raise ValueError(f"Expected a non-empty value for `worker_id` but received {worker_id!r}")
-        if not file_path:
-            raise ValueError(f"Expected a non-empty value for `file_path` but received {file_path!r}")
-        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
-        return self._get(
-            path_template("/api/workers/{worker_id}/files/{file_path}", worker_id=worker_id, file_path=file_path),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=BinaryAPIResponse,
-        )
-
 
 class AsyncWorkersResource(AsyncAPIResource):
+    """Create, retrieve, and continue agent workers."""
+
     @cached_property
     def schedules(self) -> AsyncSchedulesResource:
         """Manage future and recurring worker tasks."""
@@ -293,8 +267,11 @@ class AsyncWorkersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Worker:
-        """
-        Create a new agent worker and start it with the supplied instruction.
+        """Create a new agent worker and start it with the supplied instruction.
+
+        Send
+        `multipart/form-data` to attach files alongside the instruction; the bytes are
+        bootstrapped into the worker's workspace before the first turn.
 
         Args:
           extra_headers: Send extra headers
@@ -325,6 +302,7 @@ class AsyncWorkersResource(AsyncAPIResource):
         self,
         worker_id: str,
         *,
+        stream: Literal["true", "false"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -332,10 +310,16 @@ class AsyncWorkersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Worker:
-        """
-        Retrieve the current worker state and messages.
+        """Retrieve the current worker state and messages.
+
+        Returns a JSON worker object by
+        default, or a server-sent event stream when `stream=true`.
 
         Args:
+          stream: Set to "true" to receive a server-sent event stream that replays all stored
+              messages and then continues with live chunks from the active turn (if any)
+              before closing.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -349,7 +333,11 @@ class AsyncWorkersResource(AsyncAPIResource):
         return await self._get(
             path_template("/api/workers/{worker_id}", worker_id=worker_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"stream": stream}, worker_retrieve_params.WorkerRetrieveParams),
             ),
             cast_to=Worker,
         )
@@ -368,8 +356,11 @@ class AsyncWorkersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Worker:
-        """
-        Send another instruction to an existing worker.
+        """Send another instruction to an existing worker.
+
+        Send `multipart/form-data` to
+        attach additional files; the bytes are bootstrapped into the worker's workspace
+        before the next turn.
 
         Args:
           extra_headers: Send extra headers
@@ -431,45 +422,6 @@ class AsyncWorkersResource(AsyncAPIResource):
             cast_to=str,
         )
 
-    async def retrieve_file(
-        self,
-        file_path: str,
-        *,
-        worker_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncBinaryAPIResponse:
-        """Retrieve a file published from a worker workspace.
-
-        The runtime route accepts
-        nested paths after /files/.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not worker_id:
-            raise ValueError(f"Expected a non-empty value for `worker_id` but received {worker_id!r}")
-        if not file_path:
-            raise ValueError(f"Expected a non-empty value for `file_path` but received {file_path!r}")
-        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
-        return await self._get(
-            path_template("/api/workers/{worker_id}/files/{file_path}", worker_id=worker_id, file_path=file_path),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AsyncBinaryAPIResponse,
-        )
-
 
 class WorkersResourceWithRawResponse:
     def __init__(self, workers: WorkersResource) -> None:
@@ -486,10 +438,6 @@ class WorkersResourceWithRawResponse:
         )
         self.retrieve_email = to_raw_response_wrapper(
             workers.retrieve_email,
-        )
-        self.retrieve_file = to_custom_raw_response_wrapper(
-            workers.retrieve_file,
-            BinaryAPIResponse,
         )
 
     @cached_property
@@ -514,10 +462,6 @@ class AsyncWorkersResourceWithRawResponse:
         self.retrieve_email = async_to_raw_response_wrapper(
             workers.retrieve_email,
         )
-        self.retrieve_file = async_to_custom_raw_response_wrapper(
-            workers.retrieve_file,
-            AsyncBinaryAPIResponse,
-        )
 
     @cached_property
     def schedules(self) -> AsyncSchedulesResourceWithRawResponse:
@@ -541,10 +485,6 @@ class WorkersResourceWithStreamingResponse:
         self.retrieve_email = to_streamed_response_wrapper(
             workers.retrieve_email,
         )
-        self.retrieve_file = to_custom_streamed_response_wrapper(
-            workers.retrieve_file,
-            StreamedBinaryAPIResponse,
-        )
 
     @cached_property
     def schedules(self) -> SchedulesResourceWithStreamingResponse:
@@ -567,10 +507,6 @@ class AsyncWorkersResourceWithStreamingResponse:
         )
         self.retrieve_email = async_to_streamed_response_wrapper(
             workers.retrieve_email,
-        )
-        self.retrieve_file = async_to_custom_streamed_response_wrapper(
-            workers.retrieve_file,
-            AsyncStreamedBinaryAPIResponse,
         )
 
     @cached_property
