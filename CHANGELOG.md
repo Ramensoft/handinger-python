@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.6.0 (2026-04-28)
+
+Full Changelog: [v0.5.0...v0.6.0](https://github.com/Ramensoft/handinger-python/compare/v0.5.0...v0.6.0)
+
+### Features
+
+* support setting headers via env ([57144a4](https://github.com/Ramensoft/handinger-python/commit/57144a43f0f6eea6b4c514ef4395c5c509159630))
+
+
+### Bug Fixes
+
+* use correct field name format for multipart file arrays ([6d72144](https://github.com/Ramensoft/handinger-python/commit/6d721447326bc9cfe4dfbaaa9421e1baab44a1b6))
+
 ## 0.5.0 (2026-04-27)
 
 Full Changelog: [v0.4.0...v0.5.0](https://github.com/Ramensoft/handinger-python/compare/v0.4.0...v0.5.0)
