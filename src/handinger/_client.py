@@ -36,7 +36,8 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import workers
+    from .resources import tasks, workers
+    from .resources.tasks import TasksResource, AsyncTasksResource
     from .resources.workers.workers import WorkersResource, AsyncWorkersResource
 
 __all__ = [
@@ -117,10 +118,17 @@ class Handinger(SyncAPIClient):
 
     @cached_property
     def workers(self) -> WorkersResource:
-        """Create, retrieve, and continue agent workers."""
+        """Create, retrieve, and manage agent worker templates."""
         from .resources.workers import WorkersResource
 
         return WorkersResource(self)
+
+    @cached_property
+    def tasks(self) -> TasksResource:
+        """Run and inspect tasks against a worker."""
+        from .resources.tasks import TasksResource
+
+        return TasksResource(self)
 
     @cached_property
     def with_raw_response(self) -> HandingerWithRawResponse:
@@ -306,10 +314,17 @@ class AsyncHandinger(AsyncAPIClient):
 
     @cached_property
     def workers(self) -> AsyncWorkersResource:
-        """Create, retrieve, and continue agent workers."""
+        """Create, retrieve, and manage agent worker templates."""
         from .resources.workers import AsyncWorkersResource
 
         return AsyncWorkersResource(self)
+
+    @cached_property
+    def tasks(self) -> AsyncTasksResource:
+        """Run and inspect tasks against a worker."""
+        from .resources.tasks import AsyncTasksResource
+
+        return AsyncTasksResource(self)
 
     @cached_property
     def with_raw_response(self) -> AsyncHandingerWithRawResponse:
@@ -437,10 +452,17 @@ class HandingerWithRawResponse:
 
     @cached_property
     def workers(self) -> workers.WorkersResourceWithRawResponse:
-        """Create, retrieve, and continue agent workers."""
+        """Create, retrieve, and manage agent worker templates."""
         from .resources.workers import WorkersResourceWithRawResponse
 
         return WorkersResourceWithRawResponse(self._client.workers)
+
+    @cached_property
+    def tasks(self) -> tasks.TasksResourceWithRawResponse:
+        """Run and inspect tasks against a worker."""
+        from .resources.tasks import TasksResourceWithRawResponse
+
+        return TasksResourceWithRawResponse(self._client.tasks)
 
 
 class AsyncHandingerWithRawResponse:
@@ -451,10 +473,17 @@ class AsyncHandingerWithRawResponse:
 
     @cached_property
     def workers(self) -> workers.AsyncWorkersResourceWithRawResponse:
-        """Create, retrieve, and continue agent workers."""
+        """Create, retrieve, and manage agent worker templates."""
         from .resources.workers import AsyncWorkersResourceWithRawResponse
 
         return AsyncWorkersResourceWithRawResponse(self._client.workers)
+
+    @cached_property
+    def tasks(self) -> tasks.AsyncTasksResourceWithRawResponse:
+        """Run and inspect tasks against a worker."""
+        from .resources.tasks import AsyncTasksResourceWithRawResponse
+
+        return AsyncTasksResourceWithRawResponse(self._client.tasks)
 
 
 class HandingerWithStreamedResponse:
@@ -465,10 +494,17 @@ class HandingerWithStreamedResponse:
 
     @cached_property
     def workers(self) -> workers.WorkersResourceWithStreamingResponse:
-        """Create, retrieve, and continue agent workers."""
+        """Create, retrieve, and manage agent worker templates."""
         from .resources.workers import WorkersResourceWithStreamingResponse
 
         return WorkersResourceWithStreamingResponse(self._client.workers)
+
+    @cached_property
+    def tasks(self) -> tasks.TasksResourceWithStreamingResponse:
+        """Run and inspect tasks against a worker."""
+        from .resources.tasks import TasksResourceWithStreamingResponse
+
+        return TasksResourceWithStreamingResponse(self._client.tasks)
 
 
 class AsyncHandingerWithStreamedResponse:
@@ -479,10 +515,17 @@ class AsyncHandingerWithStreamedResponse:
 
     @cached_property
     def workers(self) -> workers.AsyncWorkersResourceWithStreamingResponse:
-        """Create, retrieve, and continue agent workers."""
+        """Create, retrieve, and manage agent worker templates."""
         from .resources.workers import AsyncWorkersResourceWithStreamingResponse
 
         return AsyncWorkersResourceWithStreamingResponse(self._client.workers)
+
+    @cached_property
+    def tasks(self) -> tasks.AsyncTasksResourceWithStreamingResponse:
+        """Run and inspect tasks against a worker."""
+        from .resources.tasks import AsyncTasksResourceWithStreamingResponse
+
+        return AsyncTasksResourceWithStreamingResponse(self._client.tasks)
 
 
 Client = Handinger

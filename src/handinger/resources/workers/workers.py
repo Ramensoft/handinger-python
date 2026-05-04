@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...types import worker_create_params, worker_continue_params, worker_retrieve_params
+from ...types import worker_create_params, worker_retrieve_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
@@ -27,12 +27,13 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.worker import Worker
+from ...types.worker_create_response import WorkerCreateResponse
 
 __all__ = ["WorkersResource", "AsyncWorkersResource"]
 
 
 class WorkersResource(SyncAPIResource):
-    """Create, retrieve, and continue agent workers."""
+    """Create, retrieve, and manage agent worker templates."""
 
     @cached_property
     def schedules(self) -> SchedulesResource:
@@ -61,23 +62,27 @@ class WorkersResource(SyncAPIResource):
     def create(
         self,
         *,
-        input: str,
-        budget: Literal["low", "standard", "high", "unlimited"] | Omit = omit,
-        stream: bool | Omit = omit,
+        title: str,
+        instructions: str | Omit = omit,
+        visibility: Literal["public", "private"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Worker:
-        """Create a new agent worker and start it with the supplied instruction.
+    ) -> WorkerCreateResponse:
+        """Create a new worker.
 
-        Send
-        `multipart/form-data` to attach files alongside the instruction; the bytes are
-        bootstrapped into the worker's workspace before the first turn.
+        The worker is a reusable agent template; tasks are runs
+        against this template. Use `POST /tasks` to actually run the agent.
 
         Args:
+          instructions: Persistent system prompt the worker uses for every task it runs.
+
+          visibility: `public` (default) is visible to all org members. `private` is only visible to
+              invited members.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -90,16 +95,16 @@ class WorkersResource(SyncAPIResource):
             "/api/workers",
             body=maybe_transform(
                 {
-                    "input": input,
-                    "budget": budget,
-                    "stream": stream,
+                    "title": title,
+                    "instructions": instructions,
+                    "visibility": visibility,
                 },
                 worker_create_params.WorkerCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Worker,
+            cast_to=WorkerCreateResponse,
         )
 
     def retrieve(
@@ -114,14 +119,14 @@ class WorkersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Worker:
-        """Retrieve the current worker state and messages.
-
-        Returns a JSON worker object by
-        default, or a server-sent event stream when `stream=true`.
+        """
+        Retrieve the current worker state and messages from its most recent task.
+        Returns a JSON worker object by default, or a server-sent event stream when
+        `stream=true`.
 
         Args:
           stream: Set to "true" to receive a server-sent event stream that replays all stored
-              messages and then continues with live chunks from the active turn (if any)
+              messages and then continues with live chunks from the active task (if any)
               before closing.
 
           extra_headers: Send extra headers
@@ -142,53 +147,6 @@ class WorkersResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform({"stream": stream}, worker_retrieve_params.WorkerRetrieveParams),
-            ),
-            cast_to=Worker,
-        )
-
-    def continue_(
-        self,
-        worker_id: str,
-        *,
-        input: str,
-        budget: Literal["low", "standard", "high", "unlimited"] | Omit = omit,
-        stream: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Worker:
-        """Send another instruction to an existing worker.
-
-        Send `multipart/form-data` to
-        attach additional files; the bytes are bootstrapped into the worker's workspace
-        before the next turn.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not worker_id:
-            raise ValueError(f"Expected a non-empty value for `worker_id` but received {worker_id!r}")
-        return self._post(
-            path_template("/api/workers/{worker_id}", worker_id=worker_id),
-            body=maybe_transform(
-                {
-                    "input": input,
-                    "budget": budget,
-                    "stream": stream,
-                },
-                worker_continue_params.WorkerContinueParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Worker,
         )
@@ -228,7 +186,7 @@ class WorkersResource(SyncAPIResource):
 
 
 class AsyncWorkersResource(AsyncAPIResource):
-    """Create, retrieve, and continue agent workers."""
+    """Create, retrieve, and manage agent worker templates."""
 
     @cached_property
     def schedules(self) -> AsyncSchedulesResource:
@@ -257,23 +215,27 @@ class AsyncWorkersResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        input: str,
-        budget: Literal["low", "standard", "high", "unlimited"] | Omit = omit,
-        stream: bool | Omit = omit,
+        title: str,
+        instructions: str | Omit = omit,
+        visibility: Literal["public", "private"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Worker:
-        """Create a new agent worker and start it with the supplied instruction.
+    ) -> WorkerCreateResponse:
+        """Create a new worker.
 
-        Send
-        `multipart/form-data` to attach files alongside the instruction; the bytes are
-        bootstrapped into the worker's workspace before the first turn.
+        The worker is a reusable agent template; tasks are runs
+        against this template. Use `POST /tasks` to actually run the agent.
 
         Args:
+          instructions: Persistent system prompt the worker uses for every task it runs.
+
+          visibility: `public` (default) is visible to all org members. `private` is only visible to
+              invited members.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -286,16 +248,16 @@ class AsyncWorkersResource(AsyncAPIResource):
             "/api/workers",
             body=await async_maybe_transform(
                 {
-                    "input": input,
-                    "budget": budget,
-                    "stream": stream,
+                    "title": title,
+                    "instructions": instructions,
+                    "visibility": visibility,
                 },
                 worker_create_params.WorkerCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Worker,
+            cast_to=WorkerCreateResponse,
         )
 
     async def retrieve(
@@ -310,14 +272,14 @@ class AsyncWorkersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Worker:
-        """Retrieve the current worker state and messages.
-
-        Returns a JSON worker object by
-        default, or a server-sent event stream when `stream=true`.
+        """
+        Retrieve the current worker state and messages from its most recent task.
+        Returns a JSON worker object by default, or a server-sent event stream when
+        `stream=true`.
 
         Args:
           stream: Set to "true" to receive a server-sent event stream that replays all stored
-              messages and then continues with live chunks from the active turn (if any)
+              messages and then continues with live chunks from the active task (if any)
               before closing.
 
           extra_headers: Send extra headers
@@ -338,53 +300,6 @@ class AsyncWorkersResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform({"stream": stream}, worker_retrieve_params.WorkerRetrieveParams),
-            ),
-            cast_to=Worker,
-        )
-
-    async def continue_(
-        self,
-        worker_id: str,
-        *,
-        input: str,
-        budget: Literal["low", "standard", "high", "unlimited"] | Omit = omit,
-        stream: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Worker:
-        """Send another instruction to an existing worker.
-
-        Send `multipart/form-data` to
-        attach additional files; the bytes are bootstrapped into the worker's workspace
-        before the next turn.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not worker_id:
-            raise ValueError(f"Expected a non-empty value for `worker_id` but received {worker_id!r}")
-        return await self._post(
-            path_template("/api/workers/{worker_id}", worker_id=worker_id),
-            body=await async_maybe_transform(
-                {
-                    "input": input,
-                    "budget": budget,
-                    "stream": stream,
-                },
-                worker_continue_params.WorkerContinueParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Worker,
         )
@@ -433,9 +348,6 @@ class WorkersResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             workers.retrieve,
         )
-        self.continue_ = to_raw_response_wrapper(
-            workers.continue_,
-        )
         self.retrieve_email = to_raw_response_wrapper(
             workers.retrieve_email,
         )
@@ -455,9 +367,6 @@ class AsyncWorkersResourceWithRawResponse:
         )
         self.retrieve = async_to_raw_response_wrapper(
             workers.retrieve,
-        )
-        self.continue_ = async_to_raw_response_wrapper(
-            workers.continue_,
         )
         self.retrieve_email = async_to_raw_response_wrapper(
             workers.retrieve_email,
@@ -479,9 +388,6 @@ class WorkersResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             workers.retrieve,
         )
-        self.continue_ = to_streamed_response_wrapper(
-            workers.continue_,
-        )
         self.retrieve_email = to_streamed_response_wrapper(
             workers.retrieve_email,
         )
@@ -501,9 +407,6 @@ class AsyncWorkersResourceWithStreamingResponse:
         )
         self.retrieve = async_to_streamed_response_wrapper(
             workers.retrieve,
-        )
-        self.continue_ = async_to_streamed_response_wrapper(
-            workers.continue_,
         )
         self.retrieve_email = async_to_streamed_response_wrapper(
             workers.retrieve_email,

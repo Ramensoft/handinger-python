@@ -1,0 +1,44 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from typing import List, Optional
+
+from pydantic import Field as FieldInfo
+
+from .task import Task
+from .._models import BaseModel
+
+__all__ = ["TaskWithTurns", "Turn"]
+
+
+class Turn(BaseModel):
+    id: str
+
+    completed_at: Optional[str] = FieldInfo(alias="completedAt", default=None)
+
+    credits: float
+
+    duration_ms: int = FieldInfo(alias="durationMs")
+
+    input: str
+
+    input_tokens: int = FieldInfo(alias="inputTokens")
+
+    output_text: str = FieldInfo(alias="outputText")
+
+    output_tokens: int = FieldInfo(alias="outputTokens")
+
+    role: str
+
+    seq: int
+
+    started_at: str = FieldInfo(alias="startedAt")
+
+    status: str
+
+    task_id: str = FieldInfo(alias="taskId")
+
+
+class TaskWithTurns(BaseModel):
+    task: Task
+
+    turns: List[Turn]
