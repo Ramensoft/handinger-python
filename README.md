@@ -32,8 +32,9 @@ client = Handinger(
     api_key=os.environ.get("HANDINGER_API_KEY"),  # This is the default and can be omitted
 )
 
-worker = client.workers.create(
-    input="What's the weather today in Barcelona?",
+worker = client.tasks.create(
+    title="Brand voice analyzer",
+    worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
 )
 print(worker.id)
 ```
@@ -58,8 +59,9 @@ client = AsyncHandinger(
 
 
 async def main() -> None:
-    worker = await client.workers.create(
-        input="What's the weather today in Barcelona?",
+    worker = await client.tasks.create(
+        title="Brand voice analyzer",
+        worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
     )
     print(worker.id)
 
@@ -94,8 +96,9 @@ async def main() -> None:
         api_key=os.environ.get("HANDINGER_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
-        worker = await client.workers.create(
-            input="What's the weather today in Barcelona?",
+        worker = await client.tasks.create(
+            title="Brand voice analyzer",
+            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
         )
         print(worker.id)
 
@@ -128,8 +131,9 @@ from handinger import Handinger
 client = Handinger()
 
 try:
-    client.workers.create(
-        input="What's the weather today in Barcelona?",
+    client.tasks.create(
+        title="Brand voice analyzer",
+        worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
     )
 except handinger.APIConnectionError as e:
     print("The server could not be reached")
@@ -173,8 +177,9 @@ client = Handinger(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).workers.create(
-    input="What's the weather today in Barcelona?",
+client.with_options(max_retries=5).tasks.create(
+    title="Brand voice analyzer",
+    worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
 )
 ```
 
@@ -198,8 +203,9 @@ client = Handinger(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).workers.create(
-    input="What's the weather today in Barcelona?",
+client.with_options(timeout=5.0).tasks.create(
+    title="Brand voice analyzer",
+    worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
 )
 ```
 
@@ -241,13 +247,14 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from handinger import Handinger
 
 client = Handinger()
-response = client.workers.with_raw_response.create(
-    input="What's the weather today in Barcelona?",
+response = client.tasks.with_raw_response.create(
+    title="Brand voice analyzer",
+    worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
 )
 print(response.headers.get('X-My-Header'))
 
-worker = response.parse()  # get the object that `workers.create()` would have returned
-print(worker.id)
+task = response.parse()  # get the object that `tasks.create()` would have returned
+print(task.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/Ramensoft/handinger-python/tree/main/src/handinger/_response.py) object.
@@ -261,8 +268,9 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.workers.with_streaming_response.create(
-    input="What's the weather today in Barcelona?",
+with client.tasks.with_streaming_response.create(
+    title="Brand voice analyzer",
+    worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

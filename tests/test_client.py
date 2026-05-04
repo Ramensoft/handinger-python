@@ -875,20 +875,24 @@ class TestHandinger:
     @mock.patch("handinger._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: Handinger) -> None:
-        respx_mock.post("/api/workers").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/api/tasks").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.workers.with_streaming_response.create(input="What's the weather today in Barcelona?").__enter__()
+            client.tasks.with_streaming_response.create(
+                title="Brand voice analyzer", worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM"
+            ).__enter__()
 
         assert _get_open_connections(client) == 0
 
     @mock.patch("handinger._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: Handinger) -> None:
-        respx_mock.post("/api/workers").mock(return_value=httpx.Response(500))
+        respx_mock.post("/api/tasks").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.workers.with_streaming_response.create(input="What's the weather today in Barcelona?").__enter__()
+            client.tasks.with_streaming_response.create(
+                title="Brand voice analyzer", worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM"
+            ).__enter__()
         assert _get_open_connections(client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -915,9 +919,11 @@ class TestHandinger:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/api/workers").mock(side_effect=retry_handler)
+        respx_mock.post("/api/tasks").mock(side_effect=retry_handler)
 
-        response = client.workers.with_raw_response.create(input="What's the weather today in Barcelona?")
+        response = client.tasks.with_raw_response.create(
+            title="Brand voice analyzer", worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM"
+        )
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -939,10 +945,12 @@ class TestHandinger:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/api/workers").mock(side_effect=retry_handler)
+        respx_mock.post("/api/tasks").mock(side_effect=retry_handler)
 
-        response = client.workers.with_raw_response.create(
-            input="What's the weather today in Barcelona?", extra_headers={"x-stainless-retry-count": Omit()}
+        response = client.tasks.with_raw_response.create(
+            title="Brand voice analyzer",
+            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+            extra_headers={"x-stainless-retry-count": Omit()},
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -964,10 +972,12 @@ class TestHandinger:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/api/workers").mock(side_effect=retry_handler)
+        respx_mock.post("/api/tasks").mock(side_effect=retry_handler)
 
-        response = client.workers.with_raw_response.create(
-            input="What's the weather today in Barcelona?", extra_headers={"x-stainless-retry-count": "42"}
+        response = client.tasks.with_raw_response.create(
+            title="Brand voice analyzer",
+            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+            extra_headers={"x-stainless-retry-count": "42"},
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
@@ -1811,11 +1821,11 @@ class TestAsyncHandinger:
     async def test_retrying_timeout_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncHandinger
     ) -> None:
-        respx_mock.post("/api/workers").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/api/tasks").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.workers.with_streaming_response.create(
-                input="What's the weather today in Barcelona?"
+            await async_client.tasks.with_streaming_response.create(
+                title="Brand voice analyzer", worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM"
             ).__aenter__()
 
         assert _get_open_connections(async_client) == 0
@@ -1825,11 +1835,11 @@ class TestAsyncHandinger:
     async def test_retrying_status_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncHandinger
     ) -> None:
-        respx_mock.post("/api/workers").mock(return_value=httpx.Response(500))
+        respx_mock.post("/api/tasks").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.workers.with_streaming_response.create(
-                input="What's the weather today in Barcelona?"
+            await async_client.tasks.with_streaming_response.create(
+                title="Brand voice analyzer", worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM"
             ).__aenter__()
         assert _get_open_connections(async_client) == 0
 
@@ -1857,9 +1867,11 @@ class TestAsyncHandinger:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/api/workers").mock(side_effect=retry_handler)
+        respx_mock.post("/api/tasks").mock(side_effect=retry_handler)
 
-        response = await client.workers.with_raw_response.create(input="What's the weather today in Barcelona?")
+        response = await client.tasks.with_raw_response.create(
+            title="Brand voice analyzer", worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM"
+        )
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1881,10 +1893,12 @@ class TestAsyncHandinger:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/api/workers").mock(side_effect=retry_handler)
+        respx_mock.post("/api/tasks").mock(side_effect=retry_handler)
 
-        response = await client.workers.with_raw_response.create(
-            input="What's the weather today in Barcelona?", extra_headers={"x-stainless-retry-count": Omit()}
+        response = await client.tasks.with_raw_response.create(
+            title="Brand voice analyzer",
+            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+            extra_headers={"x-stainless-retry-count": Omit()},
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1906,10 +1920,12 @@ class TestAsyncHandinger:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/api/workers").mock(side_effect=retry_handler)
+        respx_mock.post("/api/tasks").mock(side_effect=retry_handler)
 
-        response = await client.workers.with_raw_response.create(
-            input="What's the weather today in Barcelona?", extra_headers={"x-stainless-retry-count": "42"}
+        response = await client.tasks.with_raw_response.create(
+            title="Brand voice analyzer",
+            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+            extra_headers={"x-stainless-retry-count": "42"},
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
