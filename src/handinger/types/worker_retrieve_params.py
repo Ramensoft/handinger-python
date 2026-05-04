@@ -11,6 +11,6 @@ class WorkerRetrieveParams(TypedDict, total=False):
     stream: Literal["true", "false"]
     """
     Set to "true" to receive a server-sent event stream that replays all stored
-    messages and then continues with live chunks from the active turn (if any)
+    messages and then continues with live chunks from the active task (if any)
     before closing.
     """
