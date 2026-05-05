@@ -34,6 +34,7 @@ class TestWorkers:
         worker = client.workers.create(
             title="Brand voice analyzer",
             instructions="instructions",
+            prompt="prompt",
             visibility="public",
         )
         assert_matches_type(WorkerCreateResponse, worker, path=["response"])
@@ -177,6 +178,7 @@ class TestAsyncWorkers:
         worker = await async_client.workers.create(
             title="Brand voice analyzer",
             instructions="instructions",
+            prompt="prompt",
             visibility="public",
         )
         assert_matches_type(WorkerCreateResponse, worker, path=["response"])
