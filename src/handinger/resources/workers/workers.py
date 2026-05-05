@@ -64,6 +64,7 @@ class WorkersResource(SyncAPIResource):
         *,
         title: str,
         instructions: str | Omit = omit,
+        prompt: str | Omit = omit,
         visibility: Literal["public", "private"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -79,6 +80,9 @@ class WorkersResource(SyncAPIResource):
 
         Args:
           instructions: Persistent system prompt the worker uses for every task it runs.
+
+          prompt: Natural-language description of the worker to use for AI-generated instructions
+              when `instructions` is omitted.
 
           visibility: `public` (default) is visible to all org members. `private` is only visible to
               invited members.
@@ -97,6 +101,7 @@ class WorkersResource(SyncAPIResource):
                 {
                     "title": title,
                     "instructions": instructions,
+                    "prompt": prompt,
                     "visibility": visibility,
                 },
                 worker_create_params.WorkerCreateParams,
@@ -217,6 +222,7 @@ class AsyncWorkersResource(AsyncAPIResource):
         *,
         title: str,
         instructions: str | Omit = omit,
+        prompt: str | Omit = omit,
         visibility: Literal["public", "private"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -232,6 +238,9 @@ class AsyncWorkersResource(AsyncAPIResource):
 
         Args:
           instructions: Persistent system prompt the worker uses for every task it runs.
+
+          prompt: Natural-language description of the worker to use for AI-generated instructions
+              when `instructions` is omitted.
 
           visibility: `public` (default) is visible to all org members. `private` is only visible to
               invited members.
@@ -250,6 +259,7 @@ class AsyncWorkersResource(AsyncAPIResource):
                 {
                     "title": title,
                     "instructions": instructions,
+                    "prompt": prompt,
                     "visibility": visibility,
                 },
                 worker_create_params.WorkerCreateParams,
