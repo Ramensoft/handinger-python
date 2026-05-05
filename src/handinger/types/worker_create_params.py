@@ -13,6 +13,12 @@ class WorkerCreateParams(TypedDict, total=False):
     instructions: str
     """Persistent system prompt the worker uses for every task it runs."""
 
+    prompt: str
+    """
+    Natural-language description of the worker to use for AI-generated instructions
+    when `instructions` is omitted.
+    """
+
     visibility: Literal["public", "private"]
     """`public` (default) is visible to all org members.
 
