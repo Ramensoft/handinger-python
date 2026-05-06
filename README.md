@@ -33,7 +33,6 @@ client = Handinger(
 )
 
 worker = client.tasks.create(
-    title="Brand voice analyzer",
     worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
 )
 print(worker.id)
@@ -60,7 +59,6 @@ client = AsyncHandinger(
 
 async def main() -> None:
     worker = await client.tasks.create(
-        title="Brand voice analyzer",
         worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
     )
     print(worker.id)
@@ -97,7 +95,6 @@ async def main() -> None:
         http_client=DefaultAioHttpClient(),
     ) as client:
         worker = await client.tasks.create(
-            title="Brand voice analyzer",
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
         )
         print(worker.id)
@@ -132,7 +129,6 @@ client = Handinger()
 
 try:
     client.tasks.create(
-        title="Brand voice analyzer",
         worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
     )
 except handinger.APIConnectionError as e:
@@ -178,7 +174,6 @@ client = Handinger(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).tasks.create(
-    title="Brand voice analyzer",
     worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
 )
 ```
@@ -204,7 +199,6 @@ client = Handinger(
 
 # Override per-request:
 client.with_options(timeout=5.0).tasks.create(
-    title="Brand voice analyzer",
     worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
 )
 ```
@@ -248,7 +242,6 @@ from handinger import Handinger
 
 client = Handinger()
 response = client.tasks.with_raw_response.create(
-    title="Brand voice analyzer",
     worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
 )
 print(response.headers.get('X-My-Header'))
@@ -269,7 +262,6 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.tasks.with_streaming_response.create(
-    title="Brand voice analyzer",
     worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
 ) as response:
     print(response.headers.get("X-My-Header"))
