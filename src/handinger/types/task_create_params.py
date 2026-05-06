@@ -10,8 +10,6 @@ __all__ = ["TaskCreateParams"]
 
 
 class TaskCreateParams(TypedDict, total=False):
-    title: Required[str]
-
     worker_id: Required[Annotated[str, PropertyInfo(alias="workerId")]]
     """Worker id the task belongs to."""
 
@@ -22,6 +20,12 @@ class TaskCreateParams(TypedDict, total=False):
     """
     Natural-language description of the worker to use for AI-generated instructions
     when `instructions` is omitted.
+    """
+
+    title: str
+    """Optional display name.
+
+    When omitted, Handinger assigns a random dog-themed name.
     """
 
     visibility: Literal["public", "private"]

@@ -23,18 +23,16 @@ class TestWorkers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Handinger) -> None:
-        worker = client.workers.create(
-            title="Brand voice analyzer",
-        )
+        worker = client.workers.create()
         assert_matches_type(WorkerCreateResponse, worker, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Handinger) -> None:
         worker = client.workers.create(
-            title="Brand voice analyzer",
             instructions="instructions",
             prompt="prompt",
+            title="Brand voice analyzer",
             visibility="public",
         )
         assert_matches_type(WorkerCreateResponse, worker, path=["response"])
@@ -42,9 +40,7 @@ class TestWorkers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Handinger) -> None:
-        response = client.workers.with_raw_response.create(
-            title="Brand voice analyzer",
-        )
+        response = client.workers.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -54,9 +50,7 @@ class TestWorkers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Handinger) -> None:
-        with client.workers.with_streaming_response.create(
-            title="Brand voice analyzer",
-        ) as response:
+        with client.workers.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -167,18 +161,16 @@ class TestAsyncWorkers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncHandinger) -> None:
-        worker = await async_client.workers.create(
-            title="Brand voice analyzer",
-        )
+        worker = await async_client.workers.create()
         assert_matches_type(WorkerCreateResponse, worker, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncHandinger) -> None:
         worker = await async_client.workers.create(
-            title="Brand voice analyzer",
             instructions="instructions",
             prompt="prompt",
+            title="Brand voice analyzer",
             visibility="public",
         )
         assert_matches_type(WorkerCreateResponse, worker, path=["response"])
@@ -186,9 +178,7 @@ class TestAsyncWorkers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncHandinger) -> None:
-        response = await async_client.workers.with_raw_response.create(
-            title="Brand voice analyzer",
-        )
+        response = await async_client.workers.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -198,9 +188,7 @@ class TestAsyncWorkers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncHandinger) -> None:
-        async with async_client.workers.with_streaming_response.create(
-            title="Brand voice analyzer",
-        ) as response:
+        async with async_client.workers.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

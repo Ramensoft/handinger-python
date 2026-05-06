@@ -2,14 +2,12 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["WorkerCreateParams"]
 
 
 class WorkerCreateParams(TypedDict, total=False):
-    title: Required[str]
-
     instructions: str
     """Persistent system prompt the worker uses for every task it runs."""
 
@@ -17,6 +15,12 @@ class WorkerCreateParams(TypedDict, total=False):
     """
     Natural-language description of the worker to use for AI-generated instructions
     when `instructions` is omitted.
+    """
+
+    title: str
+    """Optional display name.
+
+    When omitted, Handinger assigns a random dog-themed name.
     """
 
     visibility: Literal["public", "private"]
