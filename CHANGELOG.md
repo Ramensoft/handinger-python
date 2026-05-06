@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.0 (2026-05-06)
+
+Full Changelog: [v0.8.0...v0.9.0](https://github.com/Ramensoft/handinger-python/compare/v0.8.0...v0.9.0)
+
+### Features
+
+* **api:** api update ([508fa5e](https://github.com/Ramensoft/handinger-python/commit/508fa5ea48a42e31dbe249d92c3bbdfec588ad6d))
+
 ## 0.8.0 (2026-05-05)
 
 Full Changelog: [v0.7.0...v0.8.0](https://github.com/Ramensoft/handinger-python/compare/v0.7.0...v0.8.0)
