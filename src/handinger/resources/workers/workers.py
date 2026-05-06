@@ -62,9 +62,9 @@ class WorkersResource(SyncAPIResource):
     def create(
         self,
         *,
-        title: str,
         instructions: str | Omit = omit,
         prompt: str | Omit = omit,
+        title: str | Omit = omit,
         visibility: Literal["public", "private"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -84,6 +84,8 @@ class WorkersResource(SyncAPIResource):
           prompt: Natural-language description of the worker to use for AI-generated instructions
               when `instructions` is omitted.
 
+          title: Optional display name. When omitted, Handinger assigns a random dog-themed name.
+
           visibility: `public` (default) is visible to all org members. `private` is only visible to
               invited members.
 
@@ -99,9 +101,9 @@ class WorkersResource(SyncAPIResource):
             "/api/workers",
             body=maybe_transform(
                 {
-                    "title": title,
                     "instructions": instructions,
                     "prompt": prompt,
+                    "title": title,
                     "visibility": visibility,
                 },
                 worker_create_params.WorkerCreateParams,
@@ -220,9 +222,9 @@ class AsyncWorkersResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        title: str,
         instructions: str | Omit = omit,
         prompt: str | Omit = omit,
+        title: str | Omit = omit,
         visibility: Literal["public", "private"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -242,6 +244,8 @@ class AsyncWorkersResource(AsyncAPIResource):
           prompt: Natural-language description of the worker to use for AI-generated instructions
               when `instructions` is omitted.
 
+          title: Optional display name. When omitted, Handinger assigns a random dog-themed name.
+
           visibility: `public` (default) is visible to all org members. `private` is only visible to
               invited members.
 
@@ -257,9 +261,9 @@ class AsyncWorkersResource(AsyncAPIResource):
             "/api/workers",
             body=await async_maybe_transform(
                 {
-                    "title": title,
                     "instructions": instructions,
                     "prompt": prompt,
+                    "title": title,
                     "visibility": visibility,
                 },
                 worker_create_params.WorkerCreateParams,
