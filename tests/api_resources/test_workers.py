@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from handinger.types import (
     Worker,
     WorkerCreateResponse,
+    WorkerRetrieveEmailResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -116,7 +117,7 @@ class TestWorkers:
         worker = client.workers.retrieve_email(
             "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
         )
-        assert_matches_type(str, worker, path=["response"])
+        assert_matches_type(WorkerRetrieveEmailResponse, worker, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -128,7 +129,7 @@ class TestWorkers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         worker = response.parse()
-        assert_matches_type(str, worker, path=["response"])
+        assert_matches_type(WorkerRetrieveEmailResponse, worker, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -140,7 +141,7 @@ class TestWorkers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             worker = response.parse()
-            assert_matches_type(str, worker, path=["response"])
+            assert_matches_type(WorkerRetrieveEmailResponse, worker, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -254,7 +255,7 @@ class TestAsyncWorkers:
         worker = await async_client.workers.retrieve_email(
             "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
         )
-        assert_matches_type(str, worker, path=["response"])
+        assert_matches_type(WorkerRetrieveEmailResponse, worker, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -266,7 +267,7 @@ class TestAsyncWorkers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         worker = await response.parse()
-        assert_matches_type(str, worker, path=["response"])
+        assert_matches_type(WorkerRetrieveEmailResponse, worker, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -278,7 +279,7 @@ class TestAsyncWorkers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             worker = await response.parse()
-            assert_matches_type(str, worker, path=["response"])
+            assert_matches_type(WorkerRetrieveEmailResponse, worker, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
