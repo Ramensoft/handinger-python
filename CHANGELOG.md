@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.12.0 (2026-05-08)
+
+Full Changelog: [v0.11.0...v0.12.0](https://github.com/Ramensoft/handinger-python/compare/v0.11.0...v0.12.0)
+
+### Features
+
+* Add worker avatars and summaries with edit UI ([6d8c945](https://github.com/Ramensoft/handinger-python/commit/6d8c9455d0aafaf05860f718990a408c29c032a5))
+
 ## 0.11.0 (2026-05-08)
 
 Full Changelog: [v0.10.0...v0.11.0](https://github.com/Ramensoft/handinger-python/compare/v0.10.0...v0.11.0)
