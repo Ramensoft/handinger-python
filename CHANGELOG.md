@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.0 (2026-05-08)
+
+Full Changelog: [v0.9.0...v0.10.0](https://github.com/Ramensoft/handinger-python/compare/v0.9.0...v0.10.0)
+
+### Features
+
+* Overhaul email/permissions and ids ([8ed1e96](https://github.com/Ramensoft/handinger-python/commit/8ed1e96ebfe78f28dbb58d4bcd975c48424fcb6f))
+
 ## 0.9.0 (2026-05-06)
 
 Full Changelog: [v0.8.0...v0.9.0](https://github.com/Ramensoft/handinger-python/compare/v0.8.0...v0.9.0)
