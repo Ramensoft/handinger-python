@@ -34,6 +34,7 @@ class TestWorkers:
             instructions="instructions",
             output_schema={"foo": "bar"},
             prompt="prompt",
+            summary="summary",
             title="Brand voice analyzer",
             visibility="public",
         )
@@ -173,6 +174,7 @@ class TestAsyncWorkers:
             instructions="instructions",
             output_schema={"foo": "bar"},
             prompt="prompt",
+            summary="summary",
             title="Brand voice analyzer",
             visibility="public",
         )

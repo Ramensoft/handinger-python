@@ -33,6 +33,7 @@ class TestTasks:
             instructions="instructions",
             output_schema={"foo": "bar"},
             prompt="prompt",
+            summary="summary",
             title="Brand voice analyzer",
             visibility="public",
         )
@@ -128,6 +129,7 @@ class TestAsyncTasks:
             instructions="instructions",
             output_schema={"foo": "bar"},
             prompt="prompt",
+            summary="summary",
             title="Brand voice analyzer",
             visibility="public",
         )

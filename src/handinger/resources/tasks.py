@@ -54,6 +54,7 @@ class TasksResource(SyncAPIResource):
         instructions: str | Omit = omit,
         output_schema: Dict[str, object] | Omit = omit,
         prompt: str | Omit = omit,
+        summary: str | Omit = omit,
         title: str | Omit = omit,
         visibility: Literal["public", "private"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -81,6 +82,9 @@ class TasksResource(SyncAPIResource):
           prompt: Natural-language description of the worker to use for AI-generated instructions
               when `instructions` is omitted.
 
+          summary: Short one-line description of the worker's purpose. Auto-generated when omitted
+              and a `prompt` is provided.
+
           title: Optional display name. When omitted, Handinger assigns a random dog-themed name.
 
           visibility: `public` (default) is visible to all org members. `private` is only visible to
@@ -102,6 +106,7 @@ class TasksResource(SyncAPIResource):
                     "instructions": instructions,
                     "output_schema": output_schema,
                     "prompt": prompt,
+                    "summary": summary,
                     "title": title,
                     "visibility": visibility,
                 },
@@ -176,6 +181,7 @@ class AsyncTasksResource(AsyncAPIResource):
         instructions: str | Omit = omit,
         output_schema: Dict[str, object] | Omit = omit,
         prompt: str | Omit = omit,
+        summary: str | Omit = omit,
         title: str | Omit = omit,
         visibility: Literal["public", "private"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -203,6 +209,9 @@ class AsyncTasksResource(AsyncAPIResource):
           prompt: Natural-language description of the worker to use for AI-generated instructions
               when `instructions` is omitted.
 
+          summary: Short one-line description of the worker's purpose. Auto-generated when omitted
+              and a `prompt` is provided.
+
           title: Optional display name. When omitted, Handinger assigns a random dog-themed name.
 
           visibility: `public` (default) is visible to all org members. `private` is only visible to
@@ -224,6 +233,7 @@ class AsyncTasksResource(AsyncAPIResource):
                     "instructions": instructions,
                     "output_schema": output_schema,
                     "prompt": prompt,
+                    "summary": summary,
                     "title": title,
                     "visibility": visibility,
                 },
