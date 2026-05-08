@@ -21,6 +21,8 @@ class WorkerCreateResponse(BaseModel):
 
     output_schema: Optional[Dict[str, object]] = FieldInfo(alias="outputSchema", default=None)
 
+    summary: str
+
     title: str
 
     updated_at: Optional[str] = FieldInfo(alias="updatedAt", default=None)
