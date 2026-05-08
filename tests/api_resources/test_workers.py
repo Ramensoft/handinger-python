@@ -32,6 +32,7 @@ class TestWorkers:
     def test_method_create_with_all_params(self, client: Handinger) -> None:
         worker = client.workers.create(
             instructions="instructions",
+            output_schema={"foo": "bar"},
             prompt="prompt",
             title="Brand voice analyzer",
             visibility="public",
@@ -170,6 +171,7 @@ class TestAsyncWorkers:
     async def test_method_create_with_all_params(self, async_client: AsyncHandinger) -> None:
         worker = await async_client.workers.create(
             instructions="instructions",
+            output_schema={"foo": "bar"},
             prompt="prompt",
             title="Brand voice analyzer",
             visibility="public",

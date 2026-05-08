@@ -31,6 +31,7 @@ class TestTasks:
         task = client.tasks.create(
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
             instructions="instructions",
+            output_schema={"foo": "bar"},
             prompt="prompt",
             title="Brand voice analyzer",
             visibility="public",
@@ -125,6 +126,7 @@ class TestAsyncTasks:
         task = await async_client.tasks.create(
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
             instructions="instructions",
+            output_schema={"foo": "bar"},
             prompt="prompt",
             title="Brand voice analyzer",
             visibility="public",

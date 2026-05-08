@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from pydantic import Field as FieldInfo
 
@@ -34,6 +34,8 @@ class Turn(BaseModel):
     started_at: str = FieldInfo(alias="startedAt")
 
     status: str
+
+    structured_output: Optional[Dict[str, object]] = FieldInfo(alias="structuredOutput", default=None)
 
     task_id: str = FieldInfo(alias="taskId")
 
