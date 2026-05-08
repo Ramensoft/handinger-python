@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Dict
 from typing_extensions import Literal
 
 import httpx
@@ -51,6 +52,7 @@ class TasksResource(SyncAPIResource):
         *,
         worker_id: str,
         instructions: str | Omit = omit,
+        output_schema: Dict[str, object] | Omit = omit,
         prompt: str | Omit = omit,
         title: str | Omit = omit,
         visibility: Literal["public", "private"] | Omit = omit,
@@ -71,6 +73,10 @@ class TasksResource(SyncAPIResource):
           worker_id: Worker id the task belongs to.
 
           instructions: Persistent system prompt the worker uses for every task it runs.
+
+          output_schema: Optional JSON Schema (Draft-07) describing the structured object the worker must
+              produce. When set, every task response is validated against the schema and
+              exposed as `structuredOutput`.
 
           prompt: Natural-language description of the worker to use for AI-generated instructions
               when `instructions` is omitted.
@@ -94,6 +100,7 @@ class TasksResource(SyncAPIResource):
                 {
                     "worker_id": worker_id,
                     "instructions": instructions,
+                    "output_schema": output_schema,
                     "prompt": prompt,
                     "title": title,
                     "visibility": visibility,
@@ -167,6 +174,7 @@ class AsyncTasksResource(AsyncAPIResource):
         *,
         worker_id: str,
         instructions: str | Omit = omit,
+        output_schema: Dict[str, object] | Omit = omit,
         prompt: str | Omit = omit,
         title: str | Omit = omit,
         visibility: Literal["public", "private"] | Omit = omit,
@@ -187,6 +195,10 @@ class AsyncTasksResource(AsyncAPIResource):
           worker_id: Worker id the task belongs to.
 
           instructions: Persistent system prompt the worker uses for every task it runs.
+
+          output_schema: Optional JSON Schema (Draft-07) describing the structured object the worker must
+              produce. When set, every task response is validated against the schema and
+              exposed as `structuredOutput`.
 
           prompt: Natural-language description of the worker to use for AI-generated instructions
               when `instructions` is omitted.
@@ -210,6 +222,7 @@ class AsyncTasksResource(AsyncAPIResource):
                 {
                     "worker_id": worker_id,
                     "instructions": instructions,
+                    "output_schema": output_schema,
                     "prompt": prompt,
                     "title": title,
                     "visibility": visibility,

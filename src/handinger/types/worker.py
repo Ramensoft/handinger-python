@@ -1,5 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import builtins
 from typing import Dict, List, Optional
 from typing_extensions import Literal
 
@@ -78,5 +79,7 @@ class Worker(BaseModel):
     sources: List[Source]
 
     status: Literal["running", "completed", "pending"]
+
+    structured_output: Optional[Dict[str, builtins.object]] = None
 
     usage: Optional[Usage] = None
