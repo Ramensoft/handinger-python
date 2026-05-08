@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Dict
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -15,6 +16,13 @@ class TaskCreateParams(TypedDict, total=False):
 
     instructions: str
     """Persistent system prompt the worker uses for every task it runs."""
+
+    output_schema: Annotated[Dict[str, object], PropertyInfo(alias="outputSchema")]
+    """
+    Optional JSON Schema (Draft-07) describing the structured object the worker must
+    produce. When set, every task response is validated against the schema and
+    exposed as `structuredOutput`.
+    """
 
     prompt: str
     """

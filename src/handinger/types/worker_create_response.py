@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
@@ -18,6 +18,8 @@ class WorkerCreateResponse(BaseModel):
     instructions: str
 
     organization_id: str = FieldInfo(alias="organizationId")
+
+    output_schema: Optional[Dict[str, object]] = FieldInfo(alias="outputSchema", default=None)
 
     title: str
 

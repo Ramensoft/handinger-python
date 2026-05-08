@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Dict
 from typing_extensions import Literal
 
 import httpx
@@ -64,6 +65,7 @@ class WorkersResource(SyncAPIResource):
         self,
         *,
         instructions: str | Omit = omit,
+        output_schema: Dict[str, object] | Omit = omit,
         prompt: str | Omit = omit,
         title: str | Omit = omit,
         visibility: Literal["public", "private"] | Omit = omit,
@@ -81,6 +83,10 @@ class WorkersResource(SyncAPIResource):
 
         Args:
           instructions: Persistent system prompt the worker uses for every task it runs.
+
+          output_schema: Optional JSON Schema (Draft-07) describing the structured object the worker must
+              produce. When set, every task response is validated against the schema and
+              exposed as `structuredOutput`.
 
           prompt: Natural-language description of the worker to use for AI-generated instructions
               when `instructions` is omitted.
@@ -103,6 +109,7 @@ class WorkersResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "instructions": instructions,
+                    "output_schema": output_schema,
                     "prompt": prompt,
                     "title": title,
                     "visibility": visibility,
@@ -224,6 +231,7 @@ class AsyncWorkersResource(AsyncAPIResource):
         self,
         *,
         instructions: str | Omit = omit,
+        output_schema: Dict[str, object] | Omit = omit,
         prompt: str | Omit = omit,
         title: str | Omit = omit,
         visibility: Literal["public", "private"] | Omit = omit,
@@ -241,6 +249,10 @@ class AsyncWorkersResource(AsyncAPIResource):
 
         Args:
           instructions: Persistent system prompt the worker uses for every task it runs.
+
+          output_schema: Optional JSON Schema (Draft-07) describing the structured object the worker must
+              produce. When set, every task response is validated against the schema and
+              exposed as `structuredOutput`.
 
           prompt: Natural-language description of the worker to use for AI-generated instructions
               when `instructions` is omitted.
@@ -263,6 +275,7 @@ class AsyncWorkersResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "instructions": instructions,
+                    "output_schema": output_schema,
                     "prompt": prompt,
                     "title": title,
                     "visibility": visibility,
