@@ -27,6 +27,12 @@ class WorkerCreateParams(TypedDict, total=False):
     when `instructions` is omitted.
     """
 
+    summary: str
+    """Short one-line description of the worker's purpose.
+
+    Auto-generated when omitted and a `prompt` is provided.
+    """
+
     title: str
     """Optional display name.
 
