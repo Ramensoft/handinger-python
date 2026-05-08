@@ -10,7 +10,7 @@ Methods:
 
 - <code title="post /api/workers">client.workers.<a href="./src/handinger/resources/workers/workers.py">create</a>(\*\*<a href="src/handinger/types/worker_create_params.py">params</a>) -> <a href="./src/handinger/types/worker_create_response.py">WorkerCreateResponse</a></code>
 - <code title="get /api/workers/{workerId}">client.workers.<a href="./src/handinger/resources/workers/workers.py">retrieve</a>(worker_id, \*\*<a href="src/handinger/types/worker_retrieve_params.py">params</a>) -> <a href="./src/handinger/types/worker.py">Worker</a></code>
-- <code title="get /api/workers/{workerId}/email">client.workers.<a href="./src/handinger/resources/workers/workers.py">retrieve_email</a>(worker_id) -> str</code>
+- <code title="get /api/workers/{workerId}/email">client.workers.<a href="./src/handinger/resources/workers/workers.py">retrieve_email</a>(worker_id) -> <a href="./src/handinger/types/worker_retrieve_email_response.py">WorkerRetrieveEmailResponse</a></code>
 
 ## Schedules
 

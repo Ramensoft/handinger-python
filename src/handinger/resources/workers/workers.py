@@ -28,6 +28,7 @@ from ..._response import (
 from ..._base_client import make_request_options
 from ...types.worker import Worker
 from ...types.worker_create_response import WorkerCreateResponse
+from ...types.worker_retrieve_email_response import WorkerRetrieveEmailResponse
 
 __all__ = ["WorkersResource", "AsyncWorkersResource"]
 
@@ -168,7 +169,7 @@ class WorkersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> str:
+    ) -> WorkerRetrieveEmailResponse:
         """
         Retrieve the inbound email address for a worker.
 
@@ -188,7 +189,7 @@ class WorkersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=str,
+            cast_to=WorkerRetrieveEmailResponse,
         )
 
 
@@ -328,7 +329,7 @@ class AsyncWorkersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> str:
+    ) -> WorkerRetrieveEmailResponse:
         """
         Retrieve the inbound email address for a worker.
 
@@ -348,7 +349,7 @@ class AsyncWorkersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=str,
+            cast_to=WorkerRetrieveEmailResponse,
         )
 
 
