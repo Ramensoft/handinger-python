@@ -21,7 +21,7 @@ class TestTasks:
     @parametrize
     def test_method_create(self, client: Handinger) -> None:
         task = client.tasks.create(
-            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+            worker_id="wrk_vk81XUHKHG-qr4",
         )
         assert_matches_type(Worker, task, path=["response"])
 
@@ -29,11 +29,12 @@ class TestTasks:
     @parametrize
     def test_method_create_with_all_params(self, client: Handinger) -> None:
         task = client.tasks.create(
-            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+            worker_id="wrk_vk81XUHKHG-qr4",
             instructions="instructions",
             output_schema={"foo": "bar"},
             prompt="prompt",
             summary="summary",
+            task_id="tsk_2Z-YWz3hFq6VlW",
             title="Brand voice analyzer",
             visibility="public",
         )
@@ -43,7 +44,7 @@ class TestTasks:
     @parametrize
     def test_raw_response_create(self, client: Handinger) -> None:
         response = client.tasks.with_raw_response.create(
-            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+            worker_id="wrk_vk81XUHKHG-qr4",
         )
 
         assert response.is_closed is True
@@ -55,7 +56,7 @@ class TestTasks:
     @parametrize
     def test_streaming_response_create(self, client: Handinger) -> None:
         with client.tasks.with_streaming_response.create(
-            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+            worker_id="wrk_vk81XUHKHG-qr4",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -117,7 +118,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_method_create(self, async_client: AsyncHandinger) -> None:
         task = await async_client.tasks.create(
-            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+            worker_id="wrk_vk81XUHKHG-qr4",
         )
         assert_matches_type(Worker, task, path=["response"])
 
@@ -125,11 +126,12 @@ class TestAsyncTasks:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncHandinger) -> None:
         task = await async_client.tasks.create(
-            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+            worker_id="wrk_vk81XUHKHG-qr4",
             instructions="instructions",
             output_schema={"foo": "bar"},
             prompt="prompt",
             summary="summary",
+            task_id="tsk_2Z-YWz3hFq6VlW",
             title="Brand voice analyzer",
             visibility="public",
         )
@@ -139,7 +141,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncHandinger) -> None:
         response = await async_client.tasks.with_raw_response.create(
-            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+            worker_id="wrk_vk81XUHKHG-qr4",
         )
 
         assert response.is_closed is True
@@ -151,7 +153,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncHandinger) -> None:
         async with async_client.tasks.with_streaming_response.create(
-            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+            worker_id="wrk_vk81XUHKHG-qr4",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
