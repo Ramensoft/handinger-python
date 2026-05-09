@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.12.1 (2026-05-09)
+
+Full Changelog: [v0.12.0...v0.12.1](https://github.com/Ramensoft/handinger-python/compare/v0.12.0...v0.12.1)
+
+### Bug Fixes
+
+* **client:** add missing f-string prefix in file type error message ([658da3d](https://github.com/Ramensoft/handinger-python/commit/658da3d4b9b0f21ed39d87fca315b6421e83fea9))
+
 ## 0.12.0 (2026-05-08)
 
 Full Changelog: [v0.11.0...v0.12.0](https://github.com/Ramensoft/handinger-python/compare/v0.11.0...v0.12.0)
