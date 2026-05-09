@@ -55,6 +55,7 @@ class TasksResource(SyncAPIResource):
         output_schema: Dict[str, object] | Omit = omit,
         prompt: str | Omit = omit,
         summary: str | Omit = omit,
+        task_id: str | Omit = omit,
         title: str | Omit = omit,
         visibility: Literal["public", "private"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -85,6 +86,9 @@ class TasksResource(SyncAPIResource):
           summary: Short one-line description of the worker's purpose. Auto-generated when omitted
               and a `prompt` is provided.
 
+          task_id: Optional client-provided task id. Reuse this id to add turns to an existing
+              task.
+
           title: Optional display name. When omitted, Handinger assigns a random dog-themed name.
 
           visibility: `public` (default) is visible to all org members. `private` is only visible to
@@ -107,6 +111,7 @@ class TasksResource(SyncAPIResource):
                     "output_schema": output_schema,
                     "prompt": prompt,
                     "summary": summary,
+                    "task_id": task_id,
                     "title": title,
                     "visibility": visibility,
                 },
@@ -182,6 +187,7 @@ class AsyncTasksResource(AsyncAPIResource):
         output_schema: Dict[str, object] | Omit = omit,
         prompt: str | Omit = omit,
         summary: str | Omit = omit,
+        task_id: str | Omit = omit,
         title: str | Omit = omit,
         visibility: Literal["public", "private"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -212,6 +218,9 @@ class AsyncTasksResource(AsyncAPIResource):
           summary: Short one-line description of the worker's purpose. Auto-generated when omitted
               and a `prompt` is provided.
 
+          task_id: Optional client-provided task id. Reuse this id to add turns to an existing
+              task.
+
           title: Optional display name. When omitted, Handinger assigns a random dog-themed name.
 
           visibility: `public` (default) is visible to all org members. `private` is only visible to
@@ -234,6 +243,7 @@ class AsyncTasksResource(AsyncAPIResource):
                     "output_schema": output_schema,
                     "prompt": prompt,
                     "summary": summary,
+                    "task_id": task_id,
                     "title": title,
                     "visibility": visibility,
                 },
