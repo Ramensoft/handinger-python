@@ -36,6 +36,12 @@ class TaskCreateParams(TypedDict, total=False):
     Auto-generated when omitted and a `prompt` is provided.
     """
 
+    task_id: Annotated[str, PropertyInfo(alias="taskId")]
+    """Optional client-provided task id.
+
+    Reuse this id to add turns to an existing task.
+    """
+
     title: str
     """Optional display name.
 
