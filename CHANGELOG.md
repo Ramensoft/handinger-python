@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.19.1 (2026-05-11)
+
+Full Changelog: [v0.19.0...v0.19.1](https://github.com/ramensoft/handinger-python/compare/v0.19.0...v0.19.1)
+
+### Bug Fixes
+
+* **types:** correct credits, duration_ms, turn_count to int in Totals/Turn ([210e3f5](https://github.com/ramensoft/handinger-python/commit/210e3f58de432e0e840a2db4f6980286820b0127))
+
 ## 0.19.0 (2026-05-11)
 
 Full Changelog: [v0.18.0...v0.19.0](https://github.com/ramensoft/handinger-python/compare/v0.18.0...v0.19.0)
