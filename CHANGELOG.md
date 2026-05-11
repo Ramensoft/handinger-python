@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.19.2 (2026-05-11)
+
+Full Changelog: [v0.19.1...v0.19.2](https://github.com/ramensoft/handinger-python/compare/v0.19.1...v0.19.2)
+
+### Chores
+
+* configure new SDK language ([38dd051](https://github.com/ramensoft/handinger-python/commit/38dd051aa5981fd08ee996a0a1f8e87162eb30ad))
+
 ## 0.19.1 (2026-05-11)
 
 Full Changelog: [v0.19.0...v0.19.1](https://github.com/ramensoft/handinger-python/compare/v0.19.0...v0.19.1)
