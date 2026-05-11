@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.16.0 (2026-05-11)
+
+Full Changelog: [v0.15.0...v0.16.0](https://github.com/Ramensoft/handinger-python/compare/v0.15.0...v0.16.0)
+
+### Features
+
+* Duplicate workers ([245ed3a](https://github.com/Ramensoft/handinger-python/commit/245ed3ae0af4507218e136cf9cc99b1d07ff3d56))
+
 ## 0.15.0 (2026-05-11)
 
 Full Changelog: [v0.14.0...v0.15.0](https://github.com/Ramensoft/handinger-python/compare/v0.14.0...v0.15.0)
