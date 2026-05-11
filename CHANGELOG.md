@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.17.1 (2026-05-11)
+
+Full Changelog: [v0.17.0...v0.17.1](https://github.com/Ramensoft/handinger-python/compare/v0.17.0...v0.17.1)
+
+### Chores
+
+* remove custom code ([0438d00](https://github.com/Ramensoft/handinger-python/commit/0438d000beab1a3eb42d7b53a4b49b6fddaa4827))
+
 ## 0.17.0 (2026-05-11)
 
 Full Changelog: [v0.16.0...v0.17.0](https://github.com/Ramensoft/handinger-python/compare/v0.16.0...v0.17.0)
