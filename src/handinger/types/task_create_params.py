@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
@@ -11,9 +11,6 @@ __all__ = ["TaskCreateParams"]
 
 
 class TaskCreateParams(TypedDict, total=False):
-    worker_id: Required[Annotated[str, PropertyInfo(alias="workerId")]]
-    """Worker id the task belongs to."""
-
     instructions: str
     """Persistent system prompt the worker uses for every task it runs."""
 
@@ -52,4 +49,10 @@ class TaskCreateParams(TypedDict, total=False):
     """`public` (default) is visible to all org members.
 
     `private` is only visible to invited members.
+    """
+
+    worker_id: Annotated[str, PropertyInfo(alias="workerId")]
+    """Worker id the task belongs to.
+
+    If omitted, a new worker is created on-the-fly using the input as instructions.
     """

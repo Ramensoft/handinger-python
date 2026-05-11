@@ -247,9 +247,9 @@ class WorkersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DeleteWorkerResponse:
         """
-        Permanently delete a worker template along with its tasks, turns, files,
-        schedules, and integrations. This action is not reversible. Only the worker
-        creator can delete a worker.
+        Soft-delete a worker template so it no longer appears in list or retrieve
+        endpoints. Tasks, turns, files, schedules, and integrations remain in the
+        database for analytics. Only the worker creator can delete a worker.
 
         Args:
           extra_headers: Send extra headers
@@ -516,9 +516,9 @@ class AsyncWorkersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DeleteWorkerResponse:
         """
-        Permanently delete a worker template along with its tasks, turns, files,
-        schedules, and integrations. This action is not reversible. Only the worker
-        creator can delete a worker.
+        Soft-delete a worker template so it no longer appears in list or retrieve
+        endpoints. Tasks, turns, files, schedules, and integrations remain in the
+        database for analytics. Only the worker creator can delete a worker.
 
         Args:
           extra_headers: Send extra headers

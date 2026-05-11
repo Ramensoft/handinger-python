@@ -51,7 +51,6 @@ class TasksResource(SyncAPIResource):
     def create(
         self,
         *,
-        worker_id: str,
         instructions: str | Omit = omit,
         output_schema: Dict[str, object] | Omit = omit,
         prompt: str | Omit = omit,
@@ -59,6 +58,7 @@ class TasksResource(SyncAPIResource):
         task_id: str | Omit = omit,
         title: str | Omit = omit,
         visibility: Literal["public", "private"] | Omit = omit,
+        worker_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -74,8 +74,6 @@ class TasksResource(SyncAPIResource):
         worker's workspace before the task starts.
 
         Args:
-          worker_id: Worker id the task belongs to.
-
           instructions: Persistent system prompt the worker uses for every task it runs.
 
           output_schema: Optional JSON Schema (Draft-07) describing the structured object the worker must
@@ -96,6 +94,9 @@ class TasksResource(SyncAPIResource):
           visibility: `public` (default) is visible to all org members. `private` is only visible to
               invited members.
 
+          worker_id: Worker id the task belongs to. If omitted, a new worker is created on-the-fly
+              using the input as instructions.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -108,7 +109,6 @@ class TasksResource(SyncAPIResource):
             "/api/tasks",
             body=maybe_transform(
                 {
-                    "worker_id": worker_id,
                     "instructions": instructions,
                     "output_schema": output_schema,
                     "prompt": prompt,
@@ -116,6 +116,7 @@ class TasksResource(SyncAPIResource):
                     "task_id": task_id,
                     "title": title,
                     "visibility": visibility,
+                    "worker_id": worker_id,
                 },
                 task_create_params.TaskCreateParams,
             ),
@@ -219,7 +220,6 @@ class AsyncTasksResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        worker_id: str,
         instructions: str | Omit = omit,
         output_schema: Dict[str, object] | Omit = omit,
         prompt: str | Omit = omit,
@@ -227,6 +227,7 @@ class AsyncTasksResource(AsyncAPIResource):
         task_id: str | Omit = omit,
         title: str | Omit = omit,
         visibility: Literal["public", "private"] | Omit = omit,
+        worker_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -242,8 +243,6 @@ class AsyncTasksResource(AsyncAPIResource):
         worker's workspace before the task starts.
 
         Args:
-          worker_id: Worker id the task belongs to.
-
           instructions: Persistent system prompt the worker uses for every task it runs.
 
           output_schema: Optional JSON Schema (Draft-07) describing the structured object the worker must
@@ -264,6 +263,9 @@ class AsyncTasksResource(AsyncAPIResource):
           visibility: `public` (default) is visible to all org members. `private` is only visible to
               invited members.
 
+          worker_id: Worker id the task belongs to. If omitted, a new worker is created on-the-fly
+              using the input as instructions.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -276,7 +278,6 @@ class AsyncTasksResource(AsyncAPIResource):
             "/api/tasks",
             body=await async_maybe_transform(
                 {
-                    "worker_id": worker_id,
                     "instructions": instructions,
                     "output_schema": output_schema,
                     "prompt": prompt,
@@ -284,6 +285,7 @@ class AsyncTasksResource(AsyncAPIResource):
                     "task_id": task_id,
                     "title": title,
                     "visibility": visibility,
+                    "worker_id": worker_id,
                 },
                 task_create_params.TaskCreateParams,
             ),
