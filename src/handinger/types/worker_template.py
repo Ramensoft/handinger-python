@@ -27,6 +27,9 @@ class WorkerTemplate(BaseModel):
 
     updated_at: Optional[str] = FieldInfo(alias="updatedAt", default=None)
 
+    url: str
+    """Web URL of the worker in the Handinger dashboard."""
+
     user_id: str = FieldInfo(alias="userId")
 
     visibility: Literal["public", "private"]

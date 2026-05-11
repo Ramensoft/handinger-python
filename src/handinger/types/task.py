@@ -37,4 +37,7 @@ class Task(BaseModel):
 
     triggered_by: Literal["api", "email", "schedule", "ui"] = FieldInfo(alias="triggeredBy")
 
+    url: str
+    """Web URL of the task in the Handinger dashboard."""
+
     worker_id: str = FieldInfo(alias="workerId")
