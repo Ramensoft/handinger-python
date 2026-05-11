@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.17.0 (2026-05-11)
+
+Full Changelog: [v0.16.0...v0.17.0](https://github.com/Ramensoft/handinger-python/compare/v0.16.0...v0.17.0)
+
+### Features
+
+* Fix OpenAPI schema definitions for proper type handling ([366be43](https://github.com/Ramensoft/handinger-python/commit/366be43cd50ae6098a4ece744828a0bda8464b4f))
+
+
+### Chores
+
+* remove custom code ([3c48c05](https://github.com/Ramensoft/handinger-python/commit/3c48c053187e3b6c0fa6019765c024ac92b4e920))
+
 ## 0.16.0 (2026-05-11)
 
 Full Changelog: [v0.15.0...v0.16.0](https://github.com/Ramensoft/handinger-python/compare/v0.15.0...v0.16.0)
