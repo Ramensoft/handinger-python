@@ -21,6 +21,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.worker import Worker
 from ..types.task_with_turns import TaskWithTurns
+from ..types.delete_task_response import DeleteTaskResponse
 
 __all__ = ["TasksResource", "AsyncTasksResource"]
 
@@ -67,9 +68,10 @@ class TasksResource(SyncAPIResource):
     ) -> Worker:
         """Run a new task against an existing worker.
 
-        Send `multipart/form-data` to attach
-        files; the bytes are bootstrapped into the worker's workspace before the task
-        starts.
+        Send a `taskId` of a prior task to
+        add a follow-up turn instead of starting a fresh task. Send
+        `multipart/form-data` to attach files; the bytes are bootstrapped into the
+        worker's workspace before the task starts.
 
         Args:
           worker_id: Worker id the task belongs to.
@@ -156,6 +158,41 @@ class TasksResource(SyncAPIResource):
             cast_to=TaskWithTurns,
         )
 
+    def delete(
+        self,
+        task_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DeleteTaskResponse:
+        """Archive a task so it stops appearing in `GET /tasks` results.
+
+        Turns and files
+        are retained for audit purposes. Only the worker creator can archive a task.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not task_id:
+            raise ValueError(f"Expected a non-empty value for `task_id` but received {task_id!r}")
+        return self._delete(
+            path_template("/api/tasks/{task_id}", task_id=task_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DeleteTaskResponse,
+        )
+
 
 class AsyncTasksResource(AsyncAPIResource):
     """Run and inspect tasks against a worker."""
@@ -199,9 +236,10 @@ class AsyncTasksResource(AsyncAPIResource):
     ) -> Worker:
         """Run a new task against an existing worker.
 
-        Send `multipart/form-data` to attach
-        files; the bytes are bootstrapped into the worker's workspace before the task
-        starts.
+        Send a `taskId` of a prior task to
+        add a follow-up turn instead of starting a fresh task. Send
+        `multipart/form-data` to attach files; the bytes are bootstrapped into the
+        worker's workspace before the task starts.
 
         Args:
           worker_id: Worker id the task belongs to.
@@ -288,6 +326,41 @@ class AsyncTasksResource(AsyncAPIResource):
             cast_to=TaskWithTurns,
         )
 
+    async def delete(
+        self,
+        task_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DeleteTaskResponse:
+        """Archive a task so it stops appearing in `GET /tasks` results.
+
+        Turns and files
+        are retained for audit purposes. Only the worker creator can archive a task.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not task_id:
+            raise ValueError(f"Expected a non-empty value for `task_id` but received {task_id!r}")
+        return await self._delete(
+            path_template("/api/tasks/{task_id}", task_id=task_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DeleteTaskResponse,
+        )
+
 
 class TasksResourceWithRawResponse:
     def __init__(self, tasks: TasksResource) -> None:
@@ -298,6 +371,9 @@ class TasksResourceWithRawResponse:
         )
         self.retrieve = to_raw_response_wrapper(
             tasks.retrieve,
+        )
+        self.delete = to_raw_response_wrapper(
+            tasks.delete,
         )
 
 
@@ -311,6 +387,9 @@ class AsyncTasksResourceWithRawResponse:
         self.retrieve = async_to_raw_response_wrapper(
             tasks.retrieve,
         )
+        self.delete = async_to_raw_response_wrapper(
+            tasks.delete,
+        )
 
 
 class TasksResourceWithStreamingResponse:
@@ -323,6 +402,9 @@ class TasksResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             tasks.retrieve,
         )
+        self.delete = to_streamed_response_wrapper(
+            tasks.delete,
+        )
 
 
 class AsyncTasksResourceWithStreamingResponse:
@@ -334,4 +416,7 @@ class AsyncTasksResourceWithStreamingResponse:
         )
         self.retrieve = async_to_streamed_response_wrapper(
             tasks.retrieve,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            tasks.delete,
         )

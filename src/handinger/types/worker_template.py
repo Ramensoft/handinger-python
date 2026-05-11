@@ -7,10 +7,10 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["WorkerCreateResponse"]
+__all__ = ["WorkerTemplate"]
 
 
-class WorkerCreateResponse(BaseModel):
+class WorkerTemplate(BaseModel):
     id: str
 
     created_at: Optional[str] = FieldInfo(alias="createdAt", default=None)
