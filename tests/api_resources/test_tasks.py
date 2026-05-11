@@ -20,20 +20,19 @@ class TestTasks:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Handinger) -> None:
-        task = client.tasks.create()
+        task = client.tasks.create(
+            input="What's the weather today in Barcelona?",
+        )
         assert_matches_type(Worker, task, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Handinger) -> None:
         task = client.tasks.create(
-            instructions="instructions",
-            output_schema={"foo": "bar"},
-            prompt="prompt",
-            summary="summary",
+            input="What's the weather today in Barcelona?",
+            budget="low",
+            stream=True,
             task_id="tsk_2Z-YWz3hFq6VlW",
-            title="Brand voice analyzer",
-            visibility="public",
             worker_id="wrk_vk81XUHKHG-qr4",
         )
         assert_matches_type(Worker, task, path=["response"])
@@ -41,7 +40,9 @@ class TestTasks:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Handinger) -> None:
-        response = client.tasks.with_raw_response.create()
+        response = client.tasks.with_raw_response.create(
+            input="What's the weather today in Barcelona?",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -51,7 +52,9 @@ class TestTasks:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Handinger) -> None:
-        with client.tasks.with_streaming_response.create() as response:
+        with client.tasks.with_streaming_response.create(
+            input="What's the weather today in Barcelona?",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -153,20 +156,19 @@ class TestAsyncTasks:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncHandinger) -> None:
-        task = await async_client.tasks.create()
+        task = await async_client.tasks.create(
+            input="What's the weather today in Barcelona?",
+        )
         assert_matches_type(Worker, task, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncHandinger) -> None:
         task = await async_client.tasks.create(
-            instructions="instructions",
-            output_schema={"foo": "bar"},
-            prompt="prompt",
-            summary="summary",
+            input="What's the weather today in Barcelona?",
+            budget="low",
+            stream=True,
             task_id="tsk_2Z-YWz3hFq6VlW",
-            title="Brand voice analyzer",
-            visibility="public",
             worker_id="wrk_vk81XUHKHG-qr4",
         )
         assert_matches_type(Worker, task, path=["response"])
@@ -174,7 +176,9 @@ class TestAsyncTasks:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncHandinger) -> None:
-        response = await async_client.tasks.with_raw_response.create()
+        response = await async_client.tasks.with_raw_response.create(
+            input="What's the weather today in Barcelona?",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -184,7 +188,9 @@ class TestAsyncTasks:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncHandinger) -> None:
-        async with async_client.tasks.with_streaming_response.create() as response:
+        async with async_client.tasks.with_streaming_response.create(
+            input="What's the weather today in Barcelona?",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

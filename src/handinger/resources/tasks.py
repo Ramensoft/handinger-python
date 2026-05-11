@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Dict
+from typing import Mapping, cast
 from typing_extensions import Literal
 
 import httpx
 
 from ..types import task_create_params
+from .._files import deepcopy_with_paths
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._utils import extract_files, path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -51,13 +52,10 @@ class TasksResource(SyncAPIResource):
     def create(
         self,
         *,
-        instructions: str | Omit = omit,
-        output_schema: Dict[str, object] | Omit = omit,
-        prompt: str | Omit = omit,
-        summary: str | Omit = omit,
+        input: str,
+        budget: Literal["low", "standard", "high", "unlimited"] | Omit = omit,
+        stream: bool | Omit = omit,
         task_id: str | Omit = omit,
-        title: str | Omit = omit,
-        visibility: Literal["public", "private"] | Omit = omit,
         worker_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -74,25 +72,8 @@ class TasksResource(SyncAPIResource):
         worker's workspace before the task starts.
 
         Args:
-          instructions: Persistent system prompt the worker uses for every task it runs.
-
-          output_schema: Optional JSON Schema (Draft-07) describing the structured object the worker must
-              produce. When set, every task response is validated against the schema and
-              exposed as `structuredOutput`.
-
-          prompt: Natural-language description of the worker to use for AI-generated instructions
-              when `instructions` is omitted.
-
-          summary: Short one-line description of the worker's purpose. Auto-generated when omitted
-              and a `prompt` is provided.
-
           task_id: Optional client-provided task id. Reuse this id to add turns to an existing
               task.
-
-          title: Optional display name. When omitted, Handinger assigns a random dog-themed name.
-
-          visibility: `public` (default) is visible to all org members. `private` is only visible to
-              invited members.
 
           worker_id: Worker id the task belongs to. If omitted, a new worker is created on-the-fly
               using the input as instructions.
@@ -105,21 +86,26 @@ class TasksResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        body = deepcopy_with_paths(
+            {
+                "input": input,
+                "budget": budget,
+                "stream": stream,
+                "task_id": task_id,
+                "worker_id": worker_id,
+            },
+            [["files"], ["files", "<array>"]],
+        )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["files"], ["files", "<array>"]])
+        if files:
+            # It should be noted that the actual Content-Type header that will be
+            # sent to the server will contain a `boundary` parameter, e.g.
+            # multipart/form-data; boundary=---abc--
+            extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return self._post(
             "/api/tasks",
-            body=maybe_transform(
-                {
-                    "instructions": instructions,
-                    "output_schema": output_schema,
-                    "prompt": prompt,
-                    "summary": summary,
-                    "task_id": task_id,
-                    "title": title,
-                    "visibility": visibility,
-                    "worker_id": worker_id,
-                },
-                task_create_params.TaskCreateParams,
-            ),
+            body=maybe_transform(body, task_create_params.TaskCreateParams),
+            files=files,
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -220,13 +206,10 @@ class AsyncTasksResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        instructions: str | Omit = omit,
-        output_schema: Dict[str, object] | Omit = omit,
-        prompt: str | Omit = omit,
-        summary: str | Omit = omit,
+        input: str,
+        budget: Literal["low", "standard", "high", "unlimited"] | Omit = omit,
+        stream: bool | Omit = omit,
         task_id: str | Omit = omit,
-        title: str | Omit = omit,
-        visibility: Literal["public", "private"] | Omit = omit,
         worker_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -243,25 +226,8 @@ class AsyncTasksResource(AsyncAPIResource):
         worker's workspace before the task starts.
 
         Args:
-          instructions: Persistent system prompt the worker uses for every task it runs.
-
-          output_schema: Optional JSON Schema (Draft-07) describing the structured object the worker must
-              produce. When set, every task response is validated against the schema and
-              exposed as `structuredOutput`.
-
-          prompt: Natural-language description of the worker to use for AI-generated instructions
-              when `instructions` is omitted.
-
-          summary: Short one-line description of the worker's purpose. Auto-generated when omitted
-              and a `prompt` is provided.
-
           task_id: Optional client-provided task id. Reuse this id to add turns to an existing
               task.
-
-          title: Optional display name. When omitted, Handinger assigns a random dog-themed name.
-
-          visibility: `public` (default) is visible to all org members. `private` is only visible to
-              invited members.
 
           worker_id: Worker id the task belongs to. If omitted, a new worker is created on-the-fly
               using the input as instructions.
@@ -274,21 +240,26 @@ class AsyncTasksResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        body = deepcopy_with_paths(
+            {
+                "input": input,
+                "budget": budget,
+                "stream": stream,
+                "task_id": task_id,
+                "worker_id": worker_id,
+            },
+            [["files"], ["files", "<array>"]],
+        )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["files"], ["files", "<array>"]])
+        if files:
+            # It should be noted that the actual Content-Type header that will be
+            # sent to the server will contain a `boundary` parameter, e.g.
+            # multipart/form-data; boundary=---abc--
+            extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return await self._post(
             "/api/tasks",
-            body=await async_maybe_transform(
-                {
-                    "instructions": instructions,
-                    "output_schema": output_schema,
-                    "prompt": prompt,
-                    "summary": summary,
-                    "task_id": task_id,
-                    "title": title,
-                    "visibility": visibility,
-                    "worker_id": worker_id,
-                },
-                task_create_params.TaskCreateParams,
-            ),
+            body=await async_maybe_transform(body, task_create_params.TaskCreateParams),
+            files=files,
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
