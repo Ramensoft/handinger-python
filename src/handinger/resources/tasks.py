@@ -72,6 +72,12 @@ class TasksResource(SyncAPIResource):
         worker's workspace before the task starts.
 
         Args:
+          budget: Compute budget the worker is allowed to spend on the task. Defaults to
+              `standard`.
+
+          stream: Stream the response as server-sent events instead of waiting for the final
+              payload.
+
           task_id: Optional client-provided task id. Reuse this id to add turns to an existing
               task.
 
@@ -226,6 +232,12 @@ class AsyncTasksResource(AsyncAPIResource):
         worker's workspace before the task starts.
 
         Args:
+          budget: Compute budget the worker is allowed to spend on the task. Defaults to
+              `standard`.
+
+          stream: Stream the response as server-sent events instead of waiting for the final
+              payload.
+
           task_id: Optional client-provided task id. Reuse this id to add turns to an existing
               task.
 
