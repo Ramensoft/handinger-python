@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.18.0 (2026-05-11)
+
+Full Changelog: [v0.17.1...v0.18.0](https://github.com/Ramensoft/handinger-python/compare/v0.17.1...v0.18.0)
+
+### Features
+
+* Add Webhook API docs ([803c174](https://github.com/Ramensoft/handinger-python/commit/803c174c76c75847c737fa933ae712ea92995408))
+
 ## 0.17.1 (2026-05-11)
 
 Full Changelog: [v0.17.0...v0.17.1](https://github.com/Ramensoft/handinger-python/compare/v0.17.0...v0.17.1)
