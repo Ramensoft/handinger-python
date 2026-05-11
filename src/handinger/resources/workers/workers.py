@@ -10,6 +10,14 @@ import httpx
 from ...types import worker_create_params, worker_update_params, worker_retrieve_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
+from .webhooks import (
+    WebhooksResource,
+    AsyncWebhooksResource,
+    WebhooksResourceWithRawResponse,
+    AsyncWebhooksResourceWithRawResponse,
+    WebhooksResourceWithStreamingResponse,
+    AsyncWebhooksResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
 from .schedules import (
     SchedulesResource,
@@ -42,6 +50,11 @@ class WorkersResource(SyncAPIResource):
     def schedules(self) -> SchedulesResource:
         """Manage future and recurring worker tasks."""
         return SchedulesResource(self._client)
+
+    @cached_property
+    def webhooks(self) -> WebhooksResource:
+        """Configure outbound webhooks delivered when a worker's tasks complete."""
+        return WebhooksResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> WorkersResourceWithRawResponse:
@@ -311,6 +324,11 @@ class AsyncWorkersResource(AsyncAPIResource):
     def schedules(self) -> AsyncSchedulesResource:
         """Manage future and recurring worker tasks."""
         return AsyncSchedulesResource(self._client)
+
+    @cached_property
+    def webhooks(self) -> AsyncWebhooksResource:
+        """Configure outbound webhooks delivered when a worker's tasks complete."""
+        return AsyncWebhooksResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncWorkersResourceWithRawResponse:
@@ -598,6 +616,11 @@ class WorkersResourceWithRawResponse:
         """Manage future and recurring worker tasks."""
         return SchedulesResourceWithRawResponse(self._workers.schedules)
 
+    @cached_property
+    def webhooks(self) -> WebhooksResourceWithRawResponse:
+        """Configure outbound webhooks delivered when a worker's tasks complete."""
+        return WebhooksResourceWithRawResponse(self._workers.webhooks)
+
 
 class AsyncWorkersResourceWithRawResponse:
     def __init__(self, workers: AsyncWorkersResource) -> None:
@@ -623,6 +646,11 @@ class AsyncWorkersResourceWithRawResponse:
     def schedules(self) -> AsyncSchedulesResourceWithRawResponse:
         """Manage future and recurring worker tasks."""
         return AsyncSchedulesResourceWithRawResponse(self._workers.schedules)
+
+    @cached_property
+    def webhooks(self) -> AsyncWebhooksResourceWithRawResponse:
+        """Configure outbound webhooks delivered when a worker's tasks complete."""
+        return AsyncWebhooksResourceWithRawResponse(self._workers.webhooks)
 
 
 class WorkersResourceWithStreamingResponse:
@@ -650,6 +678,11 @@ class WorkersResourceWithStreamingResponse:
         """Manage future and recurring worker tasks."""
         return SchedulesResourceWithStreamingResponse(self._workers.schedules)
 
+    @cached_property
+    def webhooks(self) -> WebhooksResourceWithStreamingResponse:
+        """Configure outbound webhooks delivered when a worker's tasks complete."""
+        return WebhooksResourceWithStreamingResponse(self._workers.webhooks)
+
 
 class AsyncWorkersResourceWithStreamingResponse:
     def __init__(self, workers: AsyncWorkersResource) -> None:
@@ -675,3 +708,8 @@ class AsyncWorkersResourceWithStreamingResponse:
     def schedules(self) -> AsyncSchedulesResourceWithStreamingResponse:
         """Manage future and recurring worker tasks."""
         return AsyncSchedulesResourceWithStreamingResponse(self._workers.schedules)
+
+    @cached_property
+    def webhooks(self) -> AsyncWebhooksResourceWithStreamingResponse:
+        """Configure outbound webhooks delivered when a worker's tasks complete."""
+        return AsyncWebhooksResourceWithStreamingResponse(self._workers.webhooks)
