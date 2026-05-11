@@ -33,6 +33,7 @@ client = Handinger(
 )
 
 worker = client.tasks.create(
+    input="What's the weather today in Barcelona?",
     worker_id="wrk_vk81XUHKHG-qr4",
 )
 print(worker.id)
@@ -59,6 +60,7 @@ client = AsyncHandinger(
 
 async def main() -> None:
     worker = await client.tasks.create(
+        input="What's the weather today in Barcelona?",
         worker_id="wrk_vk81XUHKHG-qr4",
     )
     print(worker.id)
@@ -95,6 +97,7 @@ async def main() -> None:
         http_client=DefaultAioHttpClient(),
     ) as client:
         worker = await client.tasks.create(
+            input="What's the weather today in Barcelona?",
             worker_id="wrk_vk81XUHKHG-qr4",
         )
         print(worker.id)
@@ -129,6 +132,7 @@ client = Handinger()
 
 try:
     client.tasks.create(
+        input="What's the weather today in Barcelona?",
         worker_id="wrk_vk81XUHKHG-qr4",
     )
 except handinger.APIConnectionError as e:
@@ -174,6 +178,7 @@ client = Handinger(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).tasks.create(
+    input="What's the weather today in Barcelona?",
     worker_id="wrk_vk81XUHKHG-qr4",
 )
 ```
@@ -199,6 +204,7 @@ client = Handinger(
 
 # Override per-request:
 client.with_options(timeout=5.0).tasks.create(
+    input="What's the weather today in Barcelona?",
     worker_id="wrk_vk81XUHKHG-qr4",
 )
 ```
@@ -242,6 +248,7 @@ from handinger import Handinger
 
 client = Handinger()
 response = client.tasks.with_raw_response.create(
+    input="What's the weather today in Barcelona?",
     worker_id="wrk_vk81XUHKHG-qr4",
 )
 print(response.headers.get('X-My-Header'))
@@ -262,6 +269,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.tasks.with_streaming_response.create(
+    input="What's the weather today in Barcelona?",
     worker_id="wrk_vk81XUHKHG-qr4",
 ) as response:
     print(response.headers.get("X-My-Header"))
