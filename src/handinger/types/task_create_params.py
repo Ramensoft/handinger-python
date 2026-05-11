@@ -13,8 +13,16 @@ class TaskCreateParams(TypedDict, total=False):
     input: Required[str]
 
     budget: Literal["low", "standard", "high", "unlimited"]
+    """Compute budget the worker is allowed to spend on the task.
+
+    Defaults to `standard`.
+    """
 
     stream: bool
+    """
+    Stream the response as server-sent events instead of waiting for the final
+    payload.
+    """
 
     task_id: Annotated[str, PropertyInfo(alias="taskId")]
     """Optional client-provided task id.

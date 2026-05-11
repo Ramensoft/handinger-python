@@ -30,8 +30,8 @@ class TestTasks:
     def test_method_create_with_all_params(self, client: Handinger) -> None:
         task = client.tasks.create(
             input="What's the weather today in Barcelona?",
-            budget="low",
-            stream=True,
+            budget="standard",
+            stream=False,
             task_id="tsk_2Z-YWz3hFq6VlW",
             worker_id="wrk_vk81XUHKHG-qr4",
         )
@@ -166,8 +166,8 @@ class TestAsyncTasks:
     async def test_method_create_with_all_params(self, async_client: AsyncHandinger) -> None:
         task = await async_client.tasks.create(
             input="What's the weather today in Barcelona?",
-            budget="low",
-            stream=True,
+            budget="standard",
+            stream=False,
             task_id="tsk_2Z-YWz3hFq6VlW",
             worker_id="wrk_vk81XUHKHG-qr4",
         )

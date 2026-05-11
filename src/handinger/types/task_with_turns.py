@@ -15,7 +15,7 @@ class Turn(BaseModel):
 
     completed_at: Optional[str] = FieldInfo(alias="completedAt", default=None)
 
-    credits: float
+    credits: int
 
     duration_ms: int = FieldInfo(alias="durationMs")
 
@@ -36,6 +36,10 @@ class Turn(BaseModel):
     status: str
 
     structured_output: Optional[Dict[str, object]] = FieldInfo(alias="structuredOutput", default=None)
+    """Structured JSON payload when the worker is configured with an output schema.
+
+    `null` otherwise.
+    """
 
     task_id: str = FieldInfo(alias="taskId")
 
