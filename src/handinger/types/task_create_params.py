@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict
-from typing_extensions import Literal, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
@@ -11,44 +10,16 @@ __all__ = ["TaskCreateParams"]
 
 
 class TaskCreateParams(TypedDict, total=False):
-    instructions: str
-    """Persistent system prompt the worker uses for every task it runs."""
+    input: Required[str]
 
-    output_schema: Annotated[Dict[str, object], PropertyInfo(alias="outputSchema")]
-    """
-    Optional JSON Schema (Draft-07) describing the structured object the worker must
-    produce. When set, every task response is validated against the schema and
-    exposed as `structuredOutput`.
-    """
+    budget: Literal["low", "standard", "high", "unlimited"]
 
-    prompt: str
-    """
-    Natural-language description of the worker to use for AI-generated instructions
-    when `instructions` is omitted.
-    """
-
-    summary: str
-    """Short one-line description of the worker's purpose.
-
-    Auto-generated when omitted and a `prompt` is provided.
-    """
+    stream: bool
 
     task_id: Annotated[str, PropertyInfo(alias="taskId")]
     """Optional client-provided task id.
 
     Reuse this id to add turns to an existing task.
-    """
-
-    title: str
-    """Optional display name.
-
-    When omitted, Handinger assigns a random dog-themed name.
-    """
-
-    visibility: Literal["public", "private"]
-    """`public` (default) is visible to all org members.
-
-    `private` is only visible to invited members.
     """
 
     worker_id: Annotated[str, PropertyInfo(alias="workerId")]
