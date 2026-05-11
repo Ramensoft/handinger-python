@@ -11,11 +11,15 @@ __all__ = ["Task", "Totals"]
 
 
 class Totals(BaseModel):
-    credits: float
+    """
+    Aggregate credit spend, elapsed wall-clock, and number of turns across the task.
+    """
 
-    duration_ms: float = FieldInfo(alias="durationMs")
+    credits: int
 
-    turn_count: float = FieldInfo(alias="turnCount")
+    duration_ms: int = FieldInfo(alias="durationMs")
+
+    turn_count: int = FieldInfo(alias="turnCount")
 
 
 class Task(BaseModel):
@@ -34,6 +38,9 @@ class Task(BaseModel):
     title: str
 
     totals: Totals
+    """
+    Aggregate credit spend, elapsed wall-clock, and number of turns across the task.
+    """
 
     triggered_by: Literal["api", "email", "schedule", "ui"] = FieldInfo(alias="triggeredBy")
 
