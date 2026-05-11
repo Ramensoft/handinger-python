@@ -8,6 +8,14 @@ from .workers import (
     WorkersResourceWithStreamingResponse,
     AsyncWorkersResourceWithStreamingResponse,
 )
+from .webhooks import (
+    WebhooksResource,
+    AsyncWebhooksResource,
+    WebhooksResourceWithRawResponse,
+    AsyncWebhooksResourceWithRawResponse,
+    WebhooksResourceWithStreamingResponse,
+    AsyncWebhooksResourceWithStreamingResponse,
+)
 from .schedules import (
     SchedulesResource,
     AsyncSchedulesResource,
@@ -24,6 +32,12 @@ __all__ = [
     "AsyncSchedulesResourceWithRawResponse",
     "SchedulesResourceWithStreamingResponse",
     "AsyncSchedulesResourceWithStreamingResponse",
+    "WebhooksResource",
+    "AsyncWebhooksResource",
+    "WebhooksResourceWithRawResponse",
+    "AsyncWebhooksResourceWithRawResponse",
+    "WebhooksResourceWithStreamingResponse",
+    "AsyncWebhooksResourceWithStreamingResponse",
     "WorkersResource",
     "AsyncWorkersResource",
     "WorkersResourceWithRawResponse",
