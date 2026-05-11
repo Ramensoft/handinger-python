@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.14.0 (2026-05-11)
+
+Full Changelog: [v0.13.0...v0.14.0](https://github.com/Ramensoft/handinger-python/compare/v0.13.0...v0.14.0)
+
+### Features
+
+* Add update and delete endpoints for workers and tasks ([4b0603c](https://github.com/Ramensoft/handinger-python/commit/4b0603c489b162e3f9ded6511e784ef03dc2d05a))
+
 ## 0.13.0 (2026-05-09)
 
 Full Changelog: [v0.12.1...v0.13.0](https://github.com/Ramensoft/handinger-python/compare/v0.12.1...v0.13.0)
