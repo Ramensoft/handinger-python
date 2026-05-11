@@ -35,6 +35,22 @@ Methods:
 - <code title="get /api/workers/{workerId}/schedules">client.workers.schedules.<a href="./src/handinger/resources/workers/schedules.py">list</a>(worker_id) -> <a href="./src/handinger/types/workers/schedule_list_response.py">ScheduleListResponse</a></code>
 - <code title="delete /api/workers/{workerId}/schedules/{scheduleId}">client.workers.schedules.<a href="./src/handinger/resources/workers/schedules.py">cancel</a>(schedule_id, \*, worker_id) -> <a href="./src/handinger/types/workers/schedule_cancel_response.py">ScheduleCancelResponse</a></code>
 
+## Webhooks
+
+Types:
+
+```python
+from handinger.types.workers import UpdateWebhook, Webhook, WebhookExecution, WebhookExecutionList
+```
+
+Methods:
+
+- <code title="get /api/workers/{workerId}/webhook">client.workers.webhooks.<a href="./src/handinger/resources/workers/webhooks.py">retrieve</a>(worker_id) -> <a href="./src/handinger/types/workers/webhook.py">Webhook</a></code>
+- <code title="put /api/workers/{workerId}/webhook">client.workers.webhooks.<a href="./src/handinger/resources/workers/webhooks.py">update</a>(worker_id, \*\*<a href="src/handinger/types/workers/webhook_update_params.py">params</a>) -> <a href="./src/handinger/types/workers/webhook.py">Webhook</a></code>
+- <code title="delete /api/workers/{workerId}/webhook">client.workers.webhooks.<a href="./src/handinger/resources/workers/webhooks.py">delete</a>(worker_id) -> <a href="./src/handinger/types/workers/webhook.py">Webhook</a></code>
+- <code title="get /api/workers/{workerId}/webhook/executions">client.workers.webhooks.<a href="./src/handinger/resources/workers/webhooks.py">list_executions</a>(worker_id, \*\*<a href="src/handinger/types/workers/webhook_list_executions_params.py">params</a>) -> <a href="./src/handinger/types/workers/webhook_execution_list.py">WebhookExecutionList</a></code>
+- <code title="post /api/workers/{workerId}/webhook/regenerate-token">client.workers.webhooks.<a href="./src/handinger/resources/workers/webhooks.py">regenerate_token</a>(worker_id) -> <a href="./src/handinger/types/workers/webhook.py">Webhook</a></code>
+
 # Tasks
 
 Types:
