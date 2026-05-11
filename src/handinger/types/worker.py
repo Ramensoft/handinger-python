@@ -82,4 +82,7 @@ class Worker(BaseModel):
 
     structured_output: Optional[Dict[str, builtins.object]] = None
 
+    url: str
+    """Web URL of the worker in the Handinger dashboard."""
+
     usage: Optional[Usage] = None
