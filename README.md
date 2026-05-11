@@ -11,7 +11,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.handinger.com](https://docs.handinger.com). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
@@ -33,7 +33,7 @@ client = Handinger(
 )
 
 worker = client.tasks.create(
-    worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+    worker_id="wrk_vk81XUHKHG-qr4",
 )
 print(worker.id)
 ```
@@ -59,7 +59,7 @@ client = AsyncHandinger(
 
 async def main() -> None:
     worker = await client.tasks.create(
-        worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+        worker_id="wrk_vk81XUHKHG-qr4",
     )
     print(worker.id)
 
@@ -95,7 +95,7 @@ async def main() -> None:
         http_client=DefaultAioHttpClient(),
     ) as client:
         worker = await client.tasks.create(
-            worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+            worker_id="wrk_vk81XUHKHG-qr4",
         )
         print(worker.id)
 
@@ -129,7 +129,7 @@ client = Handinger()
 
 try:
     client.tasks.create(
-        worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+        worker_id="wrk_vk81XUHKHG-qr4",
     )
 except handinger.APIConnectionError as e:
     print("The server could not be reached")
@@ -174,7 +174,7 @@ client = Handinger(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).tasks.create(
-    worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+    worker_id="wrk_vk81XUHKHG-qr4",
 )
 ```
 
@@ -199,7 +199,7 @@ client = Handinger(
 
 # Override per-request:
 client.with_options(timeout=5.0).tasks.create(
-    worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+    worker_id="wrk_vk81XUHKHG-qr4",
 )
 ```
 
@@ -242,7 +242,7 @@ from handinger import Handinger
 
 client = Handinger()
 response = client.tasks.with_raw_response.create(
-    worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+    worker_id="wrk_vk81XUHKHG-qr4",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -262,7 +262,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.tasks.with_streaming_response.create(
-    worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+    worker_id="wrk_vk81XUHKHG-qr4",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
