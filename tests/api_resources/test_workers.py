@@ -32,10 +32,14 @@ class TestWorkers:
     @parametrize
     def test_method_create_with_all_params(self, client: Handinger) -> None:
         worker = client.workers.create(
-            instructions="instructions",
-            output_schema={"foo": "bar"},
-            prompt="prompt",
-            summary="summary",
+            instructions="You are a brand voice analyzer. Read the input text and report whether it matches Acme's playful, plain-spoken house style. Quote specific phrases.",
+            output_schema={
+                "type": "bar",
+                "required": "bar",
+                "properties": "bar",
+            },
+            prompt="A worker that fact-checks short claims and returns a verdict with citations.",
+            summary="Audits copy against the Acme brand voice guide.",
             title="Brand voice analyzer",
             visibility="public",
         )
@@ -127,11 +131,15 @@ class TestWorkers:
     def test_method_update_with_all_params(self, client: Handinger) -> None:
         worker = client.workers.update(
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-            instructions="instructions",
-            output_schema={"foo": "bar"},
-            summary="summary",
-            title="Brand voice analyzer",
-            visibility="public",
+            instructions="You are a brand voice analyzer. Read the input text and report whether it matches Acme's playful, plain-spoken house style. Quote specific phrases.",
+            output_schema={
+                "type": "bar",
+                "required": "bar",
+                "properties": "bar",
+            },
+            summary="Audits copy against the Acme brand voice guide.",
+            title="Claim verdict v2",
+            visibility="private",
         )
         assert_matches_type(WorkerTemplate, worker, path=["response"])
 
@@ -269,10 +277,14 @@ class TestAsyncWorkers:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncHandinger) -> None:
         worker = await async_client.workers.create(
-            instructions="instructions",
-            output_schema={"foo": "bar"},
-            prompt="prompt",
-            summary="summary",
+            instructions="You are a brand voice analyzer. Read the input text and report whether it matches Acme's playful, plain-spoken house style. Quote specific phrases.",
+            output_schema={
+                "type": "bar",
+                "required": "bar",
+                "properties": "bar",
+            },
+            prompt="A worker that fact-checks short claims and returns a verdict with citations.",
+            summary="Audits copy against the Acme brand voice guide.",
             title="Brand voice analyzer",
             visibility="public",
         )
@@ -364,11 +376,15 @@ class TestAsyncWorkers:
     async def test_method_update_with_all_params(self, async_client: AsyncHandinger) -> None:
         worker = await async_client.workers.update(
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-            instructions="instructions",
-            output_schema={"foo": "bar"},
-            summary="summary",
-            title="Brand voice analyzer",
-            visibility="public",
+            instructions="You are a brand voice analyzer. Read the input text and report whether it matches Acme's playful, plain-spoken house style. Quote specific phrases.",
+            output_schema={
+                "type": "bar",
+                "required": "bar",
+                "properties": "bar",
+            },
+            summary="Audits copy against the Acme brand voice guide.",
+            title="Claim verdict v2",
+            visibility="private",
         )
         assert_matches_type(WorkerTemplate, worker, path=["response"])
 
