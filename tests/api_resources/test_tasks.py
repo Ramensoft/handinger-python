@@ -20,16 +20,13 @@ class TestTasks:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Handinger) -> None:
-        task = client.tasks.create(
-            worker_id="wrk_vk81XUHKHG-qr4",
-        )
+        task = client.tasks.create()
         assert_matches_type(Worker, task, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Handinger) -> None:
         task = client.tasks.create(
-            worker_id="wrk_vk81XUHKHG-qr4",
             instructions="instructions",
             output_schema={"foo": "bar"},
             prompt="prompt",
@@ -37,15 +34,14 @@ class TestTasks:
             task_id="tsk_2Z-YWz3hFq6VlW",
             title="Brand voice analyzer",
             visibility="public",
+            worker_id="wrk_vk81XUHKHG-qr4",
         )
         assert_matches_type(Worker, task, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Handinger) -> None:
-        response = client.tasks.with_raw_response.create(
-            worker_id="wrk_vk81XUHKHG-qr4",
-        )
+        response = client.tasks.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -55,9 +51,7 @@ class TestTasks:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Handinger) -> None:
-        with client.tasks.with_streaming_response.create(
-            worker_id="wrk_vk81XUHKHG-qr4",
-        ) as response:
+        with client.tasks.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -159,16 +153,13 @@ class TestAsyncTasks:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncHandinger) -> None:
-        task = await async_client.tasks.create(
-            worker_id="wrk_vk81XUHKHG-qr4",
-        )
+        task = await async_client.tasks.create()
         assert_matches_type(Worker, task, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncHandinger) -> None:
         task = await async_client.tasks.create(
-            worker_id="wrk_vk81XUHKHG-qr4",
             instructions="instructions",
             output_schema={"foo": "bar"},
             prompt="prompt",
@@ -176,15 +167,14 @@ class TestAsyncTasks:
             task_id="tsk_2Z-YWz3hFq6VlW",
             title="Brand voice analyzer",
             visibility="public",
+            worker_id="wrk_vk81XUHKHG-qr4",
         )
         assert_matches_type(Worker, task, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncHandinger) -> None:
-        response = await async_client.tasks.with_raw_response.create(
-            worker_id="wrk_vk81XUHKHG-qr4",
-        )
+        response = await async_client.tasks.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -194,9 +184,7 @@ class TestAsyncTasks:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncHandinger) -> None:
-        async with async_client.tasks.with_streaming_response.create(
-            worker_id="wrk_vk81XUHKHG-qr4",
-        ) as response:
+        async with async_client.tasks.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
