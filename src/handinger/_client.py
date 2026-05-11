@@ -94,7 +94,7 @@ class Handinger(SyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("HANDINGER_BASE_URL")
         if base_url is None:
-            base_url = f"https://v3.handinger.com"
+            base_url = f"https://handinger.com"
 
         custom_headers_env = os.environ.get("HANDINGER_CUSTOM_HEADERS")
         if custom_headers_env is not None:
@@ -290,7 +290,7 @@ class AsyncHandinger(AsyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("HANDINGER_BASE_URL")
         if base_url is None:
-            base_url = f"https://v3.handinger.com"
+            base_url = f"https://handinger.com"
 
         custom_headers_env = os.environ.get("HANDINGER_CUSTOM_HEADERS")
         if custom_headers_env is not None:
