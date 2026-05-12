@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.21.0 (2026-05-12)
+
+Full Changelog: [v0.20.0...v0.21.0](https://github.com/ramensoft/handinger-python/compare/v0.20.0...v0.21.0)
+
+### Features
+
+* **internal/types:** support eagerly validating pydantic iterators ([763dd68](https://github.com/ramensoft/handinger-python/commit/763dd684fcfbef1af33320ae9bea317954b5ad59))
+
 ## 0.20.0 (2026-05-11)
 
 Full Changelog: [v0.19.2...v0.20.0](https://github.com/ramensoft/handinger-python/compare/v0.19.2...v0.20.0)
