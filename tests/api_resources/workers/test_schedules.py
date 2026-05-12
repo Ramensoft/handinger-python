@@ -9,7 +9,6 @@ import pytest
 
 from handinger import Handinger, AsyncHandinger
 from tests.utils import assert_matches_type
-from handinger._utils import parse_datetime
 from handinger.types.workers import WorkerSchedule, ScheduleListResponse, ScheduleCancelResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -25,7 +24,7 @@ class TestSchedules:
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
             input="x",
             when={
-                "date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                "date": "x",
                 "type": "scheduled",
             },
         )
@@ -38,7 +37,7 @@ class TestSchedules:
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
             input="x",
             when={
-                "date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                "date": "x",
                 "type": "scheduled",
             },
             budget="low",
@@ -52,7 +51,7 @@ class TestSchedules:
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
             input="x",
             when={
-                "date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                "date": "x",
                 "type": "scheduled",
             },
         )
@@ -69,7 +68,7 @@ class TestSchedules:
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
             input="x",
             when={
-                "date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                "date": "x",
                 "type": "scheduled",
             },
         ) as response:
@@ -89,7 +88,7 @@ class TestSchedules:
                 worker_id="",
                 input="x",
                 when={
-                    "date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "date": "x",
                     "type": "scheduled",
                 },
             )
@@ -201,7 +200,7 @@ class TestAsyncSchedules:
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
             input="x",
             when={
-                "date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                "date": "x",
                 "type": "scheduled",
             },
         )
@@ -214,7 +213,7 @@ class TestAsyncSchedules:
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
             input="x",
             when={
-                "date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                "date": "x",
                 "type": "scheduled",
             },
             budget="low",
@@ -228,7 +227,7 @@ class TestAsyncSchedules:
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
             input="x",
             when={
-                "date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                "date": "x",
                 "type": "scheduled",
             },
         )
@@ -245,7 +244,7 @@ class TestAsyncSchedules:
             worker_id="t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
             input="x",
             when={
-                "date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                "date": "x",
                 "type": "scheduled",
             },
         ) as response:
@@ -265,7 +264,7 @@ class TestAsyncSchedules:
                 worker_id="",
                 input="x",
                 when={
-                    "date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "date": "x",
                     "type": "scheduled",
                 },
             )
