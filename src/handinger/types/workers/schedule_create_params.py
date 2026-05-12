@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from typing import Union
-from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
@@ -20,7 +19,7 @@ class ScheduleCreateParams(TypedDict, total=False):
 
 
 class WhenScheduledWhen(TypedDict, total=False):
-    date: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    date: Required[str]
 
     type: Required[Literal["scheduled"]]
 
