@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.23.0 (2026-05-15)
+
+Full Changelog: [v0.22.0...v0.23.0](https://github.com/ramensoft/handinger-python/compare/v0.22.0...v0.23.0)
+
+### Features
+
+* **api:** add size field to File model ([dab1f78](https://github.com/ramensoft/handinger-python/commit/dab1f7873deae79b77f2c0de274c9a3aa7274f5b))
+
 ## 0.22.0 (2026-05-12)
 
 Full Changelog: [v0.21.0...v0.22.0](https://github.com/ramensoft/handinger-python/compare/v0.21.0...v0.22.0)
