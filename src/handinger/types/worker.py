@@ -18,6 +18,8 @@ class File(BaseModel):
 
     url: str
 
+    size: Optional[int] = None
+
 
 class OutputContent(BaseModel):
     text: str
